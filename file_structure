@@ -1,0 +1,44 @@
+mehdis_cafe/
+│── manage.py
+│── mehdis_cafe/
+│   │── __init__.py
+│   │── settings.py
+│   │── urls.py
+│   │── asgi.py
+│   │── wsgi.py
+│
+│── blog/
+│   │── models.py
+│   │── views.py
+│   │── urls.py
+│   │── admin.py
+│   │── forms.py
+│   │── templates/blog/
+│   │     │── blog_list.html
+│   │     │── blog_detail.html
+│
+│── marketplace/
+│   │── models.py
+│   │── views.py
+│   │── urls.py
+│   │── admin.py
+│   │── templates/marketplace/
+│   │     │── product_list.html
+│   │     │── product_detail.html
+│
+│── core/
+│   │── views.py
+│   │── urls.py
+│   │── templates/core/
+│   │     │── home.html
+│   │     │── about.html
+│   │     │── contact.html
+│   │     │── guestbook.html
+│
+│── templates/
+│   │── base.html
+│
+│── static/
+│   │── css/style.css
+│   │── js/scripts.js
+│   │── images/
