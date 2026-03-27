@@ -12,22 +12,42 @@
     </ol>
 </nav>
 
-<div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+    <!-- LEFT: Image Gallery with Zoom -->
     <div class="space-y-4">
-        <div class="aspect-square bg-slate-100 rounded-3xl overflow-hidden border border-slate-200">
-            <img src="{{ product.image_url }}" alt="{{ product.name }}" class="w-full h-full object-cover">
+        <!-- 4:3 Main Image Container -->
+        <div id="zoom-container" class="relative aspect-[4/3] bg-slate-50 border border-slate-200 rounded-3xl overflow-hidden cursor-zoom-in group" onmousemove="zoomImage(event)" onmouseleave="resetZoom()">
+            <!-- Base Image (object-contain prevents cropping) -->
+            <img id="main-image" src="{{ product.image_url }}" alt="{{ product.name }}" class="absolute inset-0 w-full h-full object-contain p-4 transition-opacity duration-200">
+            <!-- Hidden Overlay for the Zoom Effect -->
+            <div id="zoom-overlay" class="absolute inset-0 opacity-0 group-hover:opacity-100 pointer-events-none bg-no-repeat transition-opacity duration-200" style="background-image: url('{{ product.image_url }}'); background-size: 250%;"></div>
+        </div>
+
+        <!-- Scrollable Thumbnails -->
+        <div class="flex gap-4 overflow-x-auto py-2 snap-x scrollbar-hide">
+            <!-- Cover Image Thumbnail -->
+            <button onclick="changeMainImage('{{ product.image_url }}')" class="flex-shrink-0 w-24 h-24 bg-slate-50 border border-slate-200 rounded-xl overflow-hidden hover:border-blue-500 focus:border-blue-500 transition snap-start">
+                <img src="{{ product.image_url }}" class="w-full h-full object-cover">
+            </button>
+            
+            <!-- Additional Gallery Images -->
+            {% for img in product.gallery_images.all %}
+            <button onclick="changeMainImage('{{ img.image_url }}')" class="flex-shrink-0 w-24 h-24 bg-slate-50 border border-slate-200 rounded-xl overflow-hidden hover:border-blue-500 focus:border-blue-500 transition snap-start">
+                <img src="{{ img.image_url }}" class="w-full h-full object-cover">
+            </button>
+            {% endfor %}
         </div>
     </div>
 
+    <!-- RIGHT: Product Info -->
     <div class="flex flex-col">
         <h1 class="text-4xl font-black text-slate-900 leading-tight mb-2">{{ product.name }}</h1>
-        <div class="text-2xl font-mono font-bold text-blue-600 mb-6">
-            {{ product.price_display }}
-        </div>
+        <div class="text-2xl font-mono font-bold text-blue-600 mb-6">{{ product.price_display }}</div>
 
+        <!-- "safe" tag allows TinyMCE rich text to render as HTML instead of raw code -->
         <div class="prose prose-slate mb-10 text-slate-600 leading-relaxed">
             <h4 class="text-xs font-black uppercase tracking-widest text-slate-400 mb-3">Manifest Description</h4>
-            <p>{{ product.description }}</p>
+            {{ product.description|safe }}
         </div>
 
         <div class="mt-auto space-y-4">
@@ -39,9 +59,31 @@
     </div>
 </div>
 
-<div class="mt-20 pt-10 border-t border-slate-100">
-    <a href="{% url 'bazaar' %}" class="inline-flex items-center gap-2 text-sm font-bold text-slate-600 hover:text-blue-600 transition">
-        <i class="ph ph-arrow-left"></i> Return to Directory
-    </a>
-</div>
+<!-- Image Zoom Script -->
+<script>
+    function zoomImage(e) {
+        const container = document.getElementById('zoom-container');
+        const overlay = document.getElementById('zoom-overlay');
+        const mainImg = document.getElementById('main-image');
+        
+        mainImg.style.opacity = '0'; // Hide base image
+        
+        // Calculate mouse position relative to container
+        const rect = container.getBoundingClientRect();
+        const x = ((e.clientX - rect.left) / rect.width) * 100;
+        const y = ((e.clientY - rect.top) / rect.height) * 100;
+        
+        // Move the background image
+        overlay.style.backgroundPosition = `${x}% ${y}%`;
+    }
+
+    function resetZoom() {
+        document.getElementById('main-image').style.opacity = '1';
+    }
+
+    function changeMainImage(url) {
+        document.getElementById('main-image').src = url;
+        document.getElementById('zoom-overlay').style.backgroundImage = `url('${url}')`;
+    }
+</script>
 {% endblock %}

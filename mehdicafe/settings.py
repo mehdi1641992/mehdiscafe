@@ -147,27 +147,68 @@ CSRF_TRUSTED_ORIGINS = ['https://mehdimchow.pythonanywhere.com']
 TINYMCE_DEFAULT_CONFIG = {
     "height": "700px",
     "width": "100%",
-    "menubar": False, # Hides the clunky File/Edit/View menu
-    "statusbar": False,
+    "menubar": False,  # Hides the clunky File/Edit/View menu
+    "statusbar": True, # Kept true so you can see the word count and element path at the bottom
     "skin": "oxide",
+    "promotion": False, # Hides the annoying "Upgrade" button in the top right
+    "toolbar_mode": "wrap", # CRITICAL FIX: Forces the toolbar icons to wrap to a new line instead of hiding in a cramped '...' menu
     "plugins": "advlist autolink lists link image media charmap preview anchor searchreplace visualblocks code fullscreen insertdatetime table paste code quickbars wordcount",
-    # A highly simplified top toolbar
-    "toolbar": "undo redo | formatselect | bold italic underline | alignleft aligncenter alignright | bullist numlist | link image media | removeformat | fullscreen",
-    # Floating toolbars that appear when you highlight text (like Notion/Medium)
+
+    # Categorized, modern toolbar layout ('blocks' replaces the deprecated 'formatselect')
+    "toolbar": (
+        "fullscreen preview | blocks | "
+        "bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | "
+        "bullist numlist outdent indent | link image media table | "
+        "removeformat | code wordcount"
+    ),
+
+    # Floating toolbars that appear when you highlight text
     "quickbars_selection_toolbar": "bold italic | h2 h3 | blockquote quicklink",
     "quickbars_insert_toolbar": "image media table",
-    # This makes the INSIDE of the editor look like a modern SaaS app
+
+    # This makes the INSIDE of the editor look like a modern SaaS app (Tailwind-inspired typography)
     "content_style": """
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             font-size: 16px;
-            line-height: 1.6;
-            max-width: 800px;
+            line-height: 1.8;
+            max-width: 100%;
             margin: 0 auto;
-            padding: 20px;
-            color: #333;
+            padding: 2rem;
+            color: #1f2937;
+            background-color: #ffffff;
         }
-        img { max-width: 100%; height: auto; border-radius: 8px; }
+        h1, h2, h3, h4, h5, h6 {
+            color: #111827;
+            font-weight: 700;
+            margin-top: 1.5em;
+            margin-bottom: 0.5em;
+        }
+        p { margin-bottom: 1.25em; }
+        blockquote {
+            border-left: 4px solid #3b82f6;
+            padding-left: 1rem;
+            color: #4b5563;
+            font-style: italic;
+            background: #f8fafc;
+            padding: 1rem;
+            border-radius: 0 8px 8px 0;
+        }
+        a { color: #2563eb; text-decoration: underline; }
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            margin: 2rem 0;
+        }
+        code {
+            background-color: #f1f5f9;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 14px;
+        }
     """,
 }
 

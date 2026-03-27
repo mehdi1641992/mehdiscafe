@@ -4,7 +4,7 @@ from .models import Product, WebringSite
 def bazaar(request):
     # Fetch active products and approved webring sites
     products = Product.objects.filter(is_active=True)
-    webrings = WebringSite.objects.filter(is_approved=True)
+    webrings = WebringSite.objects.filter(approved=True)
     
     return render(request, 'marketplace/bazaar.html', {
         'products': products,
@@ -28,7 +28,7 @@ def join_webring(request):
             site_name=site_name,
             site_url=site_url,
             description=description,
-            is_approved=False 
+            approved=False 
         )
         return redirect('join_success')
         
