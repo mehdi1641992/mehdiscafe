@@ -44,7 +44,7 @@
 </section>
 {% endif %}
 
-<!-- 2. SEARCH AND HEADER -->
+<!-- 2. SEARCH, HEADER, AND FILTER MODAL -->
 <form method="GET" action="{% url 'post_list' %}" id="filter-form" class="mb-10">
     <div class="flex flex-col md:flex-row md:items-center justify-between border-b border-slate-200 pb-4 gap-4">
 
@@ -72,6 +72,72 @@
                 <i class="ph ph-faders"></i> Filter
                 {% if is_filtered %}<span class="flex h-2 w-2 relative"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span></span>{% endif %}
             </button>
+        </div>
+    </div>
+
+    <!-- THE HIDDEN FILTER MODAL (This is what opens when you click Filter) -->
+    <div id="filter-modal" class="hidden fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 flex items-center justify-center p-4 opacity-0 transition-opacity duration-300">
+        <div class="bg-white rounded-3xl w-full max-w-2xl shadow-2xl border border-slate-200 overflow-hidden transform scale-95 transition-transform duration-300" id="filter-modal-content">
+            
+            <div class="p-6 border-b border-slate-100 flex justify-between items-center bg-slate-50">
+                <h4 class="font-black text-slate-900 flex items-center gap-2"><i class="ph ph-funnel text-blue-600"></i> Refine Search</h4>
+                <button type="button" onclick="toggleFilterModal()" class="text-slate-400 hover:text-red-500 transition"><i class="ph ph-x-circle text-2xl"></i></button>
+            </div>
+
+            <div class="p-6 space-y-6">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div>
+                        <label class="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2">Category</label>
+                        <select name="category" class="w-full bg-slate-50 border border-slate-200 rounded-lg p-2.5 text-sm font-bold text-slate-700 outline-none focus:border-blue-500">
+                            <option value="">All Categories</option>
+                            {% for cat in categories %}
+                                <option value="{{ cat.id }}" {% if cat.id == current_cat %}selected{% endif %}>{{ cat.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2">Year</label>
+                        <select name="year" class="w-full bg-slate-50 border border-slate-200 rounded-lg p-2.5 text-sm font-bold text-slate-700 outline-none focus:border-blue-500">
+                            <option value="">Any Year</option>
+                            {% for y in years %}
+                                <option value="{{ y }}" {% if y == current_year %}selected{% endif %}>{{ y }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2">Month</label>
+                        <select name="month" class="w-full bg-slate-50 border border-slate-200 rounded-lg p-2.5 text-sm font-bold text-slate-700 outline-none focus:border-blue-500">
+                            <option value="">Any Month</option>
+                            {% for m_num, m_name in months %}
+                                <option value="{{ m_num }}" {% if m_num == current_month %}selected{% endif %}>{{ m_name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-3">Filter by Tags</label>
+                    <div class="flex flex-wrap gap-2 max-h-40 overflow-y-auto p-1">
+                        {% for tag in tags %}
+                        <label class="cursor-pointer">
+                            <input type="checkbox" name="tags" value="{{ tag.id }}" class="peer hidden" {% if tag.id in current_tags %}checked{% endif %}>
+                            <span class="inline-block bg-white border border-slate-200 text-slate-600 px-3 py-1.5 rounded-full text-xs font-bold transition-all peer-checked:bg-blue-600 peer-checked:text-white peer-checked:border-blue-600 peer-hover:border-blue-400 select-none">
+                                #{{ tag.name }}
+                            </span>
+                        </label>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+            <div class="p-6 border-t border-slate-100 flex gap-4 bg-slate-50">
+                <button type="submit" class="flex-1 bg-blue-600 text-white font-black py-3 rounded-xl hover:bg-blue-700 transition shadow-lg shadow-blue-200">
+                    Apply Filters
+                </button>
+                <a href="{% url 'post_list' %}" class="px-6 py-3 bg-white border border-slate-200 text-slate-600 font-bold rounded-xl hover:bg-slate-100 transition text-center flex items-center justify-center">
+                    Reset
+                </a>
+            </div>
         </div>
     </div>
 </form>
@@ -113,8 +179,30 @@
 </div>
 {% endif %}
 
-<!-- CAROUSEL JAVASCRIPT -->
+<!-- JS FOR CAROUSEL AND MODAL -->
 <script>
+    // Modal Logic
+    const modal = document.getElementById('filter-modal');
+    const modalContent = document.getElementById('filter-modal-content');
+    
+    function toggleFilterModal() {
+        if (!modal) return;
+        if (modal.classList.contains('hidden')) {
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                modalContent.classList.remove('scale-95');
+            }, 10);
+        } else {
+            modal.classList.add('opacity-0');
+            modalContent.classList.add('scale-95');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
+        }
+    }
+
+    // Carousel Logic
     let currentIdx = 0;
     const carousel = document.getElementById('lore-carousel');
     const totalItems = {{ featured_posts|length|default:0 }};
@@ -124,10 +212,8 @@
     function updateCarousel() {
         if (!carousel || totalItems === 0) return;
         
-        // Slide the images
         carousel.style.transform = `translateX(-${currentIdx * 100}%)`;
         
-        // Update the dots
         dots.forEach((dot, index) => {
             if (index === currentIdx) {
                 dot.classList.add('w-6', 'bg-white');
@@ -155,7 +241,7 @@
         autoPlayInterval = setInterval(() => {
             currentIdx = (currentIdx + 1) % totalItems;
             updateCarousel();
-        }, 5000); // Transitions every 5 seconds
+        }, 5000);
     }
 
     function resetAutoPlay() {
@@ -163,7 +249,6 @@
         startAutoPlay();
     }
 
-    // Initialize Auto-play
     if (totalItems > 1) {
         startAutoPlay();
     }

@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator
 from django.db.models import Q
-from .models import Post, Category, Tag  # <-- Added Tag here!
+from .models import Post, Category, Tag
 
 def post_list(request):
     # 1. Capture GET parameters
@@ -9,7 +9,7 @@ def post_list(request):
     category_id = request.GET.get('category', '')
     year_filter = request.GET.get('year', '')
     month_filter = request.GET.get('month', '')
-    tag_ids = request.GET.getlist('tags') # Gets a list of selected tag IDs
+    tag_ids = request.GET.getlist('tags')
 
     # 2. Base Queryset (Latest to Oldest)
     all_posts = Post.objects.all().order_by('-created_at')
@@ -19,7 +19,6 @@ def post_list(request):
 
     # 3. Apply Filters sequentially
     if query:
-        # Search ONLY in the title as requested
         all_posts = all_posts.filter(title__icontains=query)
     if category_id:
         all_posts = all_posts.filter(category_id=category_id)
@@ -28,25 +27,28 @@ def post_list(request):
     if month_filter:
         all_posts = all_posts.filter(created_at__month=month_filter)
     if tag_ids:
-        # Show posts that contain ANY of the selected tags
         all_posts = all_posts.filter(tags__id__in=tag_ids).distinct()
-    
-    # 4. Carousel Logic (Hide if user is searching/filtering)
+
+    # 4. Carousel Logic
     featured_carousel = []
+
     if not is_filtered:
+        # Grabs ONLY the newest featured post
         featured_main = Post.objects.filter(is_featured=True).order_by('-created_at').first()
         exclude_ids = [featured_main.id] if featured_main else []
+        
+        # Grabs the 3 latest posts (excluding the featured one so it doesn't show twice in the carousel)
         latest_three = Post.objects.exclude(id__in=exclude_ids).order_by('-created_at')[:3]
         
         if featured_main:
             featured_carousel.append(featured_main)
+            
         featured_carousel.extend(list(latest_three))
         
-        # Remove carousel items from the grid below
-        carousel_ids = [p.id for p in featured_carousel]
-        all_posts = all_posts.exclude(id__in=carousel_ids)
+        # REMOVED the code that excluded these from all_posts! 
+        # Now they will show up in the grid below as well.
 
-    # 5. Pagination: 12 posts per page
+    # 5. Pagination
     paginator = Paginator(all_posts, 12)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
@@ -54,7 +56,6 @@ def post_list(request):
     # 6. Gather Filter Options for the Modal UI
     categories = Category.objects.all()
     tags = Tag.objects.all()
-    # Extract unique years from the database
     dates = Post.objects.dates('created_at', 'year', order='DESC')
     years = [d.year for d in dates]
     months = [
@@ -67,14 +68,10 @@ def post_list(request):
         'page_obj': page_obj,
         'featured_posts': featured_carousel,
         'is_filtered': is_filtered,
-        
-        # UI Options
         'categories': categories,
         'tags': tags,
         'years': years,
         'months': months,
-        
-        # Currently selected values (to keep inputs populated)
         'current_q': query,
         'current_cat': int(category_id) if category_id.isdigit() else '',
         'current_year': int(year_filter) if year_filter.isdigit() else '',
@@ -83,7 +80,6 @@ def post_list(request):
     }
     return render(request, 'blog/post_list.html', context)
 
-# ENSURE THIS IS AT THE BOTTOM AND NOT INDENTED
 def post_detail(request, post_id):
     post = get_object_or_404(Post, id=post_id)
     return render(request, 'blog/post_detail.html', {'post': post})
