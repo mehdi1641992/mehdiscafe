@@ -1,21 +1,43 @@
 from django.shortcuts import render, get_object_or_404
-from .models import Post, Category
+from django.core.paginator import Paginator
+from django.db.models import Q
+from .models import Post
 
 def post_list(request):
-    # Grab the latest featured post
-    featured_post = Post.objects.filter(is_featured=True).order_by('-created_at').first()
+    # 1. Search Logic
+    query = request.GET.get('q')
     
-    # Grab all other posts (excluding the featured one so it doesn't duplicate)
-    if featured_post:
-        posts = Post.objects.exclude(id=featured_post.id).order_by('-created_at')
-    else:
-        posts = Post.objects.all().order_by('-created_at')
-        
-    return render(request, 'blog/post_list.html', {
-        'featured_post': featured_post,
-        'posts': posts
-    })
+    # 2. Carousel Logic: 1 Featured + 3 Latest
+    # Get the single latest post marked as featured
+    featured_main = Post.objects.filter(is_featured=True).order_by('-created_at').first()
+    
+    # Get the 3 latest posts excluding the featured_main to avoid duplicates
+    exclude_ids = [featured_main.id] if featured_main else []
+    latest_three = Post.objects.exclude(id__in=exclude_ids).order_at('-created_at')[:3]
+    
+    # Combine for the carousel (Total 4)
+    featured_carousel = []
+    if featured_main:
+        featured_carousel.append(featured_main)
+        exclude_ids.extend([p.id for p in latest_three])
+    featured_carousel.extend(list(latest_three))
 
-def post_detail(request, post_id):
-    post = get_object_or_404(Post, id=post_id)
-    return render(request, 'blog/post_detail.html', {'post': post})
+    # 3. Grid Logic: All other posts
+    all_grid_posts = Post.objects.exclude(id__in=exclude_ids).order_by('-created_at')
+
+    # Apply search filter to the grid if a query exists
+    if query:
+        all_grid_posts = all_grid_posts.filter(
+            Q(title__icontains=query) | Q(content__icontains=query)
+        )
+
+    # 4. Pagination: 12 posts per page
+    paginator = Paginator(all_grid_posts, 12)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    return render(request, 'blog/post_list.html', {
+        'featured_posts': featured_carousel,
+        'page_obj': page_obj,
+        'query': query
+    })

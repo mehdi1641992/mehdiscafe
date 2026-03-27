@@ -3,37 +3,44 @@
 {% block title %}{{ post.title }}{% endblock %}
 
 {% block content %}
-    <h2>{{ post.title }}</h2>
-    <p><small>SYSTEM DATE: {{ post.created_at|date:"Y-m-d" }} | DIR: {{ post.category.name }}</small></p>
-    <!-- FEATURED IMAGE FROM EXTERNAL URL -->
-    {% if post.featured_image_url %}
-    <div style="margin: 20px 0; text-align: center;">
-        <img src="{{ post.featured_image_url }}" alt="Featured Image for {{ post.title }}" style="max-width: 100%; border: 3px double #0f0;">
-    </div>
-    {% endif %}
+    <nav class="flex text-slate-500 text-sm mb-6" aria-label="Breadcrumb">
+        <ol class="inline-flex items-center space-x-1 md:space-x-3">
+            <li class="inline-flex items-center">
+                <a href="/" class="hover:text-blue-600 flex items-center">
+                    <i class="ph ph-house mr-1"></i> Home
+                </a>
+            </li>
+            <li>
+                <div class="flex items-center">
+                    <i class="ph ph-caret-right mx-2 text-slate-300"></i>
+                    <a href="/blog/" class="hover:text-blue-600">Lore Archive</a>
+                </div>
+            </li>
+            <li aria-current="page">
+                <div class="flex items-center">
+                    <i class="ph ph-caret-right mx-2 text-slate-300"></i>
+                    <span class="text-slate-400 truncate max-w-[150px] md:max-w-none">{{ post.title }}</span>
+                </div>
+            </li>
+        </ol>
+    </nav>
 
-    <div class="post-content">
-        <!-- TinyMCE outputs safe HTML, so we use the |safe filter -->
-        {{ post.content|safe }}
-    </div>
-
-    <!-- RETRO MEDIA PLAYER FOR YOUTUBE -->
-    {% if post.video_url %}
-    <div class="retro-player">
-        <div class="retro-player-title">
-            <span>Windows Media Player</span>
-            <div class="retro-player-title-btn">X</div>
+    <article class="prose prose-slate max-w-none">
+        <h1 class="text-4xl font-extrabold text-slate-900 mb-4">{{ post.title }}</h1>
+        <div class="flex items-center gap-4 text-slate-500 mb-8 border-b pb-4">
+            <span class="flex items-center gap-1"><i class="ph ph-calendar"></i> {{ post.created_at|date:"M d, Y" }}</span>
+            <span class="flex items-center gap-1"><i class="ph ph-tag"></i> {{ post.category.name }}</span>
         </div>
-        <div class="retro-player-content">
-            <!-- Note: Make sure the URL added in Django Admin is an EMBED link (e.g., youtube.com/embed/...) -->
-            <iframe src="{{ post.video_url }}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+        <div class="mt-6 text-slate-700 leading-relaxed text-lg">
+            {{ post.content|safe }}
         </div>
+    </article>
+
+    <div class="mt-12 p-6 bg-blue-50 rounded-xl border border-blue-100">
+        <h4 class="font-bold text-blue-900 mb-2 flex items-center gap-2">
+            <i class="ph ph-chat-circle-dots"></i> DISCUSSION
+        </h4>
+        <p class="text-blue-700 text-sm">Comments for this entry are currently in read-only mode.</p>
     </div>
-    {% endif %}
-
-    <hr color="#00ff00">
-    <h3>> _GUEST_COMMENTS</h3>
-    <p><i>Comment module initializing in a future patch...</i></p>
-
-    <p><a href="{% url 'post_list' %}"><< BACK TO LORE DIRECTORY</a></p>
 {% endblock %}

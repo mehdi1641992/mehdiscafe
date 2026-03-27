@@ -1,30 +1,91 @@
 {% extends "base.html" %}
-
-{% block title %}The Lore{% endblock %}
+{% block title %}Lore Archive{% endblock %}
 
 {% block content %}
-    <h2>> /var/log/lore.log</h2>
-    <p>Accessing archival records...</p>
-    
-    <!-- FEATURED POST -->
-    {% if featured_post %}
-    <div style="border: 2px dashed #ff00ff; padding: 15px; margin-bottom: 20px; background-color: #110011;">
-        <h3 style="color: #ff00ff;">[FEATURED] <a href="{% url 'post_detail' featured_post.id %}">{{ featured_post.title }}</a></h3>
-        <p><small>SYSTEM DATE: {{ featured_post.created_at|date:"Y-m-d" }} | DIR: {{ featured_post.category.name }}</small></p>
-        <div style="color: #ccc;">{{ featured_post.content|safe|truncatewords_html:30 }}</div>
-        <p><a href="{% url 'post_detail' featured_post.id %}" style="color: #ff00ff;">> READ MORE.EXE</a></p>
+<section class="mb-10">
+    <div class="relative w-full overflow-hidden rounded-3xl bg-slate-900 h-[450px] shadow-2xl">
+        <div id="lore-carousel" class="flex transition-transform duration-700 ease-in-out h-full">
+            {% for post in featured_posts %}
+            <div class="min-w-full relative h-full">
+                <img src="{{ post.featured_image_url }}" class="absolute inset-0 w-full h-full object-cover" alt="{{ post.title }}">
+                <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-900/40 to-transparent"></div>
+                <div class="absolute bottom-0 left-0 p-8 md:p-12 w-full">
+                    <h2 class="text-4xl md:text-5xl font-black text-white mb-3 tracking-tighter uppercase">{{ post.title }}</h2>
+                    <p class="text-slate-300 text-sm mb-6 max-w-xl line-clamp-2">{{ post.content|striptags|truncatewords:20 }}</p>
+                    <a href="{% url 'post_detail' post.id %}" class="text-white font-bold text-sm tracking-widest hover:text-blue-400 transition">
+                        <b>READ.txt</b>
+                    </a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="absolute top-1/2 -translate-y-1/2 w-full flex justify-between px-4 pointer-events-none">
+            <button onclick="moveCarousel(-1)" class="pointer-events-auto bg-black/30 hover:bg-black/50 text-white p-2 rounded-full backdrop-blur-sm transition">
+                <i class="ph ph-caret-left-bold"></i>
+            </button>
+            <button onclick="moveCarousel(1)" class="pointer-events-auto bg-black/30 hover:bg-black/50 text-white p-2 rounded-full backdrop-blur-sm transition">
+                <i class="ph ph-caret-right-bold"></i>
+            </button>
+        </div>
     </div>
-    {% endif %}
+</section>
 
-    <hr color="#00ff00">
-
-    <!-- STANDARD POSTS -->
-    {% for post in posts %}
-    <div style="margin-bottom: 20px;">
-        <h3><a href="{% url 'post_detail' post.id %}">{{ post.title }}</a></h3>
-        <p><small>SYSTEM DATE: {{ post.created_at|date:"Y-m-d" }} | DIR: {{ post.category.name }}</small></p>
+<div class="flex items-center justify-between mb-12 border-b border-slate-200 pb-4">
+    <div class="flex items-center gap-4">
+        <form action="" method="GET" class="relative group">
+            <i class="ph ph-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-blue-600 transition-colors"></i>
+            <input type="text" name="q" value="{{ query|default:'' }}" placeholder="Search Lores..." 
+                   class="pl-10 pr-4 py-2 bg-slate-100 border-none rounded-full text-xs font-bold focus:ring-2 focus:ring-blue-500 transition-all w-48 md:w-64">
+        </form>
     </div>
-    {% empty %}
-    <p>> ERROR: No records found in the database. Awaiting admin input.</p>
+    <h3 class="text-xl font-black text-slate-900 tracking-tighter uppercase flex items-center gap-2">
+        Lores Library <i class="ph ph-books text-blue-600"></i>
+    </h3>
+</div>
+
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+    {% for post in page_obj %}
+    <div class="group flex flex-col">
+        <div class="relative aspect-[2/3] overflow-hidden rounded-xl bg-slate-200 border border-slate-100 shadow-sm">
+            <img src="{{ post.featured_image_url }}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+            
+            <div class="absolute inset-0 bg-slate-900/90 p-6 flex items-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <p class="text-white font-medium text-[12px] leading-relaxed italic">
+                    {{ post.content|striptags|truncatechars:100 }}
+                </p>
+            </div>
+        </div>
+
+        <div class="mt-4 flex-1 flex flex-col justify-between">
+            <h4 class="font-bold text-slate-900 text-sm leading-tight mb-4 group-hover:text-blue-600 transition-colors">
+                {{ post.title }}
+            </h4>
+            
+            <a href="{% url 'post_detail' post.id %}" class="inline-flex items-center justify-center w-full bg-slate-950 text-white text-[10px] font-black tracking-widest uppercase py-3 rounded-lg hover:bg-blue-600 transition-all shadow-lg">
+                READ.txt
+            </a>
+        </div>
+    </div>
     {% endfor %}
+</div>
+
+{% if page_obj.has_next %}
+<div class="mt-20 text-center">
+    <a href="?page={{ page_obj.next_page_number }}{% if query %}&q={{ query }}{% endif %}" 
+       class="inline-flex items-center gap-2 bg-white border-2 border-slate-950 px-8 py-3 rounded-xl font-black text-xs uppercase tracking-widest hover:bg-slate-950 hover:text-white transition-all">
+        See More Records <i class="ph ph-plus-circle text-lg"></i>
+    </a>
+</div>
+{% endif %}
+
+<script>
+    let currentIdx = 0;
+    const carousel = document.getElementById('lore-carousel');
+    const totalItems = {{ featured_posts|length }};
+
+    function moveCarousel(direction) {
+        currentIdx = (currentIdx + direction + totalItems) % totalItems;
+        carousel.style.transform = `translateX(-${currentIdx * 100}%)`;
+    }
+</script>
 {% endblock %}

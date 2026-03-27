@@ -12,8 +12,7 @@
     <link rel="icon" type="image/png" href="{% static 'images/favicon.ico' %}">
 
     <!-- Our new Grid CSS -->
-    <link rel="stylesheet" href="{% static 'css/retro.css' %}">
-
+    
     <meta name="description" content="Welcome to Mehdi's Cafe. A digital domain for fictional lore, worldbuilding, and creative Python scripts.">
     <meta name="keywords" content="Mehdi's Cafe, Worldbuilding, Tona and Ila, Python scripts, RPG development">
     <meta name="author" content="mehdimchow">
@@ -30,158 +29,225 @@
     <meta property="twitter:description" content="Digital artifacts and worldbuilding archives.">
     <meta property="twitter:image" content="https://mehdimchow.pythonanywhere.com/static/images/og-preview.jpg">
 
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cafe: {
+                            bg: '#f8fafc',
+                            accent: '#3b82f6',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
 </head>
-<body>
+<body class="bg-slate-50 text-slate-800 font-sans selection:bg-blue-100">
 
-    <div class="site-wrapper">
+    <div id="ad-bait" class="adsbygoogle" style="position:absolute; left:-9999px;">&nbsp;</div>
+    <div id="adblock-msg" class="hidden bg-amber-50 border-b border-amber-200 text-amber-800 px-4 py-2 text-center text-sm font-medium sticky top-0 z-50">
+        <i class="ph ph-warning-circle align-middle mr-1 text-lg"></i> 
+        SYSTEM_ADVISORY: AD-BLOCKER DETECTED. PLEASE WHITELIST THIS NODE TO SUPPORT UPTIME.
+    </div>
 
-        <!-- Header Section -->
-        <header class="header-banner">
-            <h1>MEHDI'S CAFE</h1>
-            <p><i>Serving Fresh Scripts, Stories, and Solutions.</i></p>
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+        
+        <header class="mb-12 border-b border-slate-200 pb-8">
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+                <div>
+                    <h1 class="text-4xl font-black tracking-tighter text-slate-900 flex items-center gap-2">
+                        <i class="ph ph-coffee text-blue-600"></i> MEHDI'S CAFE
+                    </h1>
+                    <p class="text-slate-500 font-medium italic">Serving Fresh Scripts, Stories, and Solutions.</p>
+                </div>
+                
+                <nav class="flex flex-wrap gap-x-6 gap-y-2 text-sm font-bold uppercase tracking-widest text-slate-600">
+                    <a href="/home/" class="hover:text-blue-600 transition flex items-center gap-1"><i class="ph ph-house-line"></i> Home</a>
+                    <a href="/blog/" class="hover:text-blue-600 transition flex items-center gap-1"><i class="ph ph-books"></i> Lore</a>
+                    <a href="/marketplace/" class="hover:text-blue-600 transition flex items-center gap-1"><i class="ph ph-storefront"></i> Bazaar</a>
+                    <a href="/contact/" class="hover:text-blue-600 transition flex items-center gap-1"><i class="ph ph-paper-plane-tilt"></i> Contact</a>
+                </nav>
+            </div>
         </header>
 
-        <!-- Marquee -->
-        <div class="retro-marquee">
-            <marquee scrollamount="5">*** WELCOME TO THE DIGITAL DOMAIN *** NEW LORE DROPPING SOON *** [UNDER CONSTRUCTION] ***</marquee>
-        </div>
-
-        <!-- The 3-Column Grid -->
-        <div class="main-grid">
-
-            <!-- Column 1: Navigation -->
-            <nav class="left-nav">
-                <button id="music-toggle" onclick="toggleMusic()" style="background:none; border:1px solid #0f0; color:#f00; cursor:pointer; font-family:'VT323'; width:100%; margin-bottom:10px;">
-                    MUSIC: OFF
-                </button>
-                <h3>NAVIGATE</h3>
-                <ul>
-                    <li><a href="/home/">HOME.EXE</a></li>
-                    <li><a href="/blog/">THE LORE</a></li>
-                    <li><a href="/marketplace/">BAZAAR</a></li>
-                    <li><a href="/guestbook/">GUESTBOOK</a></li>
-                </ul>
-                <br>
-                <hr color="#00ff00">
-                <p>Visitor Count:</p>
-                <!-- Retro Hit Counter -->
-                <img src="https://counter.hitwebcounter.com/counter/counter.php?page=mehdimchow&style=0007&nbdigits=5&type=page&initCount=0" title="Free Counter" Alt="web counter" border="0" />
-            </nav>
-
-            <!-- Column 2: Main Content (Changes per page) -->
-            <main class="content-area">
-                {% block content %}
-                {% endblock %}
-            </main>
-
-            <!-- Column 3: AdSense Right Sidebar -->
-            <aside class="right-sidebar">
-                <h3>SPONSORS</h3>
-                <div class="ad-zone">
-                    [AdSense Sidebar Unit]<br>300x250
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-10">
+            
+            <aside class="space-y-8">
+                <div class="bg-white border border-slate-200 rounded-xl p-5 shadow-sm">
+                    <h3 class="text-xs font-black uppercase tracking-widest text-slate-400 mb-4 flex items-center gap-2">
+                        <i class="ph ph-folder-open"></i> System Directory
+                    </h3>
+                    <ul class="space-y-3 text-sm font-semibold">
+                        <li><a href="/home/" class="text-slate-600 hover:text-blue-600 flex items-center gap-2"><i class="ph ph-file-js"></i> HOME.EXE</a></li>
+                        <li><a href="/blog/" class="text-slate-600 hover:text-blue-600 flex items-center gap-2"><i class="ph ph-file-text"></i> THE_LORE.SYS</a></li>
+                        <li><a href="/marketplace/" class="text-slate-600 hover:text-blue-600 flex items-center gap-2"><i class="ph ph-package"></i> BAZAAR.COM</a></li>
+                        <li><a href="/contact/" class="text-slate-600 hover:text-blue-600 flex items-center gap-2"><i class="ph ph-info"></i> CONTACT.INF</a></li>
+                    </ul>
                 </div>
-                <div class="ad-zone">
-                    [AdSense Skyscraper Unit]<br>160x600
+
+                <div class="bg-slate-900 rounded-xl p-5 shadow-xl text-white">
+                    <h3 class="text-xs font-black uppercase tracking-widest text-slate-500 mb-4 flex items-center gap-2">
+                        <i class="ph ph-speaker-high"></i> Audio Uplink
+                    </h3>
+                    <button id="music-toggle" onclick="toggleMusic()" class="w-full bg-slate-800 hover:bg-blue-600 border border-slate-700 py-2.5 rounded-lg text-xs font-bold transition-all duration-300">
+                        INITIALIZE MIDI
+                    </button>
+                    <div class="mt-4 flex items-center justify-between text-[10px] font-mono text-slate-500">
+                        <span>BITRATE: 128KBPS</span>
+                        <span class="text-green-500 animate-pulse">● LIVE</span>
+                    </div>
+                </div>
+
+                <div class="text-center p-4 border border-dashed border-slate-300 rounded-xl">
+                    <p class="text-[10px] font-mono text-slate-400 uppercase mb-2">Unique Visitors</p>
+                    <div class="text-center p-4 border border-slate-200 bg-slate-50 rounded-xl shadow-sm">
+                        <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2 flex items-center justify-center gap-1">
+                            <i class="ph ph-fingerprint text-blue-500"></i> Archive Accesses
+                        </p>
+                        <div class="inline-flex items-center justify-center bg-slate-900 px-3 py-1 rounded-md shadow-inner">
+                            <span id="hit-counter" class="text-lg font-mono font-bold text-green-400 tracking-[0.3em]">
+                                00000
+                            </span>
+                        </div>
+                        <p class="text-[9px] font-mono text-slate-400 mt-2 uppercase">Node Status: Verified</p>
+                    </div>
                 </div>
             </aside>
 
-        </div> <!-- End of Grid -->
+            <main class="lg:col-span-3 min-h-[60vh]">
+                <div class="bg-white border border-slate-200 rounded-2xl p-6 md:p-10 shadow-sm">
+                    {% block content %}{% endblock %}
+                </div>
+            </main>
 
-        <!-- Footer & Bottom Ads -->
-        <footer class="site-footer">
-            <div class="ad-zone" style="max-width: 728px; margin: 0 auto 15px auto;">
-                [AdSense Leaderboard Unit]<br>728x90
+        </div>
+
+        <footer class="mt-20 border-t border-slate-200 pt-10 text-center">
+            <div class="bg-slate-100 rounded-lg p-6 mb-8 inline-block w-full max-w-3xl border border-slate-200">
+                <span class="text-[10px] font-bold text-slate-400 block mb-2 uppercase tracking-widest">Sponsor Space</span>
+                <div class="text-slate-400 italic text-sm">[ AdSense Leaderboard Unit ]</div>
             </div>
-            <p>&copy; 2026 Mehdi's Cafe. Best viewed in Netscape Navigator.</p>
-            <!-- Phase 5 Legal Links Placeholder -->
-            <p>
-                <a href="{% url 'privacy' %}">PRIVACY.DLL</a> |
-                <a href="{% url 'terms' %}">TERMS.SYS</a> |
-                <a href="{% url 'contact' %}">CONTACT.EXE</a>
-            </p>
+            
+            <div class="flex flex-col md:flex-row justify-between items-center gap-4 text-slate-500 text-xs font-medium">
+                <p>&copy; 2026 MEHDI'S CAFE. DATA_MESH_V1.5</p>
+                <div class="flex gap-4">
+                    <a href="{% url 'privacy' %}" class="hover:text-blue-600 underline decoration-slate-300 underline-offset-4">PRIVACY_POLICY</a>
+                    <a href="{% url 'terms' %}" class="hover:text-blue-600 underline decoration-slate-300 underline-offset-4">TERMS_OF_SERVICE</a>
+                    <a href="https://github.com/mehdi1641992/mehdiscafe" class="hover:text-blue-600 underline decoration-slate-300 underline-offset-4">GITHUB_REPO</a>
+                </div>
+            </div>
         </footer>
-
-    </div> <!-- End of Site Wrapper -->
-
-    <!-- Windows 95 Cookie Dialog -->
-    <!-- Advanced Win95 Cookie Dialog -->
-<div id="cookie-dialog" class="win95-dialog" style="width: 350px;">
-    <div class="win95-title">
-        <span>SYSTEM ADVISORY</span>
-        <div class="retro-player-title-btn" onclick="acceptEssentials()">X</div>
     </div>
-    <div class="win95-body">
-        <img src="https://win98icons.alexmeub.com/icons/png/key_padlock-0.png" width="32"><br><br>
-        <p>This server requires cookie-packets to synchronize your session with Google AdSense. Select your protocol:</p>
 
-        <button class="win95-btn" onclick="acceptAll()">[ ACCEPT ALL ]</button>
-        <button class="win95-btn" onclick="acceptEssentials()">[ ESSENTIALS ONLY ]</button>
-        <button class="win95-btn" onclick="rejectAll()">[ REJECT ALL ]</button>
+    <div id="cookie-dialog" class="hidden fixed bottom-6 right-6 w-full max-w-[360px] bg-white border border-slate-200 rounded-2xl shadow-2xl p-6 z-[100] animate-in slide-in-from-bottom-5 duration-500">
+        <div class="flex items-start gap-4">
+            <div class="bg-amber-100 p-3 rounded-full">
+                <i class="ph ph-cookie text-2xl text-amber-600"></i>
+            </div>
+            <div class="flex-1">
+                <h4 class="font-bold text-slate-900 text-sm">Security Manifest Required</h4>
+                <p class="text-xs text-slate-500 mt-1 leading-relaxed">This node uses cookie-packets to sync your session and AdSense telemetry.</p>
+                
+                <div class="mt-4 flex flex-col gap-2">
+                    <button onclick="acceptAll()" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg text-xs font-bold transition">Accept All</button>
+                    <div class="grid grid-cols-2 gap-2">
+                        <button onclick="toggleDetails()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 py-2 rounded-lg text-[10px] font-bold transition">View Manifest</button>
+                        <button onclick="rejectAll()" class="bg-white border border-slate-200 hover:bg-slate-50 text-slate-500 py-2 rounded-lg text-[10px] font-bold transition">Reject All</button>
+                    </div>
+                </div>
+
+                <div id="cookie-details" class="hidden mt-4 bg-slate-50 rounded-lg p-3 border border-slate-200 text-[10px] font-mono text-slate-600 leading-tight">
+                    <p class="font-bold border-b border-slate-200 pb-1 mb-2">ACTIVE_LOG:</p>
+                    <p>• csrftoken: Security/Anti-Forgery</p>
+                    <p>• sessionid: Server Uplink ID</p>
+                    <p>• _ga/_gads: AdSense Analytics</p>
+                </div>
+            </div>
+        </div>
     </div>
-</div>
 
     <audio id="clack-sound" src="https://www.soundjay.com/communication/sounds/typewriter-key-1.mp3"></audio>
     <audio id="midi-music" loop src="https://cdn.pixabay.com/download/audio/2022/01/18/audio_d0a13f69d2.mp3"></audio>
 
-    <!-- Tab Scroller Script -->
     <script>
-        var msg = " Mehdi's Cafe - Serving Fresh Scripts ";
-        var speed = 200;
-        function scrollTitle() {
-            document.title = msg;
-            msg = msg.substring(1, msg.length) + msg.substring(0, 1);
-            setTimeout("scrollTitle()", speed);
-        }
-        scrollTitle();
+        // Detection & Cookie Trigger
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                const bait = document.getElementById('ad-bait');
+                if (bait.offsetHeight === 0 || !document.body.contains(bait)) {
+                    document.getElementById('adblock-msg').classList.remove('hidden');
+                }
+            }, 1000);
 
-        // 1. Mechanical Keyboard Clack on all Links
+            if (!localStorage.getItem('cookie_consent')) {
+                setTimeout(() => { document.getElementById('cookie-dialog').classList.remove('hidden'); }, 2000);
+            }
+        });
+
+        // Mechanical Click Sound
         document.querySelectorAll('a, button').forEach(item => {
             item.addEventListener('click', () => {
-                document.getElementById('clack-sound').cloneNode(true).play();
+                const sound = document.getElementById('clack-sound').cloneNode(true);
+                sound.volume = 0.4;
+                sound.play();
             });
         });
 
-        // 2. MIDI Music Control
+        // Dynamic Title Scroller
+        let msg = " Mehdi's Cafe - Serving Fresh Scripts ";
+        function scrollTitle() {
+            document.title = msg;
+            msg = msg.substring(1, msg.length) + msg.substring(0, 1);
+            setTimeout(scrollTitle, 250);
+        }
+        scrollTitle();
+
+        // Audio Engine
         function toggleMusic() {
-            let music = document.getElementById('midi-music');
-            let btn = document.getElementById('music-toggle');
+            const music = document.getElementById('midi-music');
+            const btn = document.getElementById('music-toggle');
             if (music.paused) {
                 music.play();
-                btn.innerHTML = "MUSIC: ON";
-                btn.style.color = "#0f0";
+                btn.innerHTML = "STOP MIDI";
+                btn.classList.replace('bg-slate-800', 'bg-blue-600');
             } else {
                 music.pause();
-                btn.innerHTML = "MUSIC: OFF";
-                btn.style.color = "#f00";
+                btn.innerHTML = "PLAY MIDI.MP3";
+                btn.classList.replace('bg-blue-600', 'bg-slate-800');
             }
         }
 
-        function hideDialog() { document.getElementById('cookie-dialog').style.display = 'none'; }
-
-        function acceptAll() {
-            localStorage.setItem('cookie_consent', 'all');
-            alert("PROTOCOL: ALL COOKIES ENABLED");
-            hideDialog();
-        }
-
-        function acceptEssentials() {
-            localStorage.setItem('cookie_consent', 'essential');
-            alert("PROTOCOL: ESSENTIALS ONLY");
-            hideDialog();
-        }
-
-        function rejectAll() {
-            localStorage.setItem('cookie_consent', 'rejected');
-            alert("PROTOCOL: ANONYMOUS MODE ACTIVE");
-            hideDialog();
-        }
-
-        window.onload = function() {
-            if (!localStorage.getItem('cookie_consent')) {
-                setTimeout(() => { document.getElementById('cookie-dialog').style.display = 'block'; }, 2000);
+        // Privacy Logic
+        function toggleDetails() { document.getElementById('cookie-details').classList.toggle('hidden'); }
+        function hideDialog() { document.getElementById('cookie-dialog').classList.add('hidden'); }
+        function acceptAll() { localStorage.setItem('cookie_consent', 'all'); hideDialog(); }
+        function rejectAll() { localStorage.setItem('cookie_consent', 'rejected'); hideDialog(); }
+        
+        async function updateCounter() {
+            const counterElement = document.getElementById('hit-counter');
+            try {
+                // This tracks visits specific to your site key: mehdiscafe-v1
+                const response = await fetch('https://api.counterapi.dev/v1/mehdiscafe-v1/hit/up');
+                const data = await response.json();
+    
+                // Formats the number to always have 5 digits (e.g., 00123)
+                const count = data.count.toString().padStart(5, '0');
+                counterElement.innerText = count;
+            } catch (error) {
+                counterElement.innerText = "OFFLN";
+                counterElement.classList.replace('text-green-400', 'text-red-400');
             }
         }
+        // Initialize on load
+        window.addEventListener('load', updateCounter);
     </script>
+</body>
+</html>
 
 </body>
 </html>

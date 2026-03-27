@@ -16,10 +16,8 @@ def intro(request):
 
 # The Actual Home Page
 def home(request):
-    # Fetch the 2 most recent Lore posts
-    latest_posts = Post.objects.all().order_by('-created_at')[:2]
-    # Fetch 2 active Bazaar products
-    featured_products = Product.objects.filter(is_active=True)[:2]
+    latest_posts = Post.objects.all().order_by('-created_at')[:4]  # Fetch 4 posts
+    featured_products = Product.objects.filter(is_active=True)[:4] # Fetch 4 products
 
     return render(request, 'home.html', {
         'posts': latest_posts,

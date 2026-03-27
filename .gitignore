@@ -5,4 +5,3 @@ media/
 .virtualenvs/
 .env
 static/
-# If you have your app password in settings, we will fix that next.

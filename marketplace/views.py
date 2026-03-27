@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from .models import Product, WebringSite
 
@@ -6,7 +6,7 @@ def bazaar(request):
     products = Product.objects.filter(is_active=True)
     webrings = WebringSite.objects.filter(approved=True)
     return render(request, 'marketplace/bazaar.html', {
-        'products': products, 
+        'products': products,
         'webrings': webrings
     })
 
@@ -23,7 +23,11 @@ def join_webring(request):
             site_url=site_url,
             description=f"{description} (Contact: {email})"
         )
-        
+
         return render(request, 'marketplace/join_success.html')
 
     return render(request, 'marketplace/join_webring.html')
+
+def product_detail(request, pk):
+    product = get_object_or_404(Product, pk=pk)
+    return render(request, 'marketplace/product_detail.html', {'product': product})
