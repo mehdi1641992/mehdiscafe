@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}The Lore{% endblock %}
+
+{% block content %}
+    <h2>> /var/log/lore.log</h2>
+    <p>Accessing archival records...</p>
+    
+    <!-- FEATURED POST -->
+    {% if featured_post %}
+    <div style="border: 2px dashed #ff00ff; padding: 15px; margin-bottom: 20px; background-color: #110011;">
+        <h3 style="color: #ff00ff;">[FEATURED] <a href="{% url 'post_detail' featured_post.id %}">{{ featured_post.title }}</a></h3>
+        <p><small>SYSTEM DATE: {{ featured_post.created_at|date:"Y-m-d" }} | DIR: {{ featured_post.category.name }}</small></p>
+        <div style="color: #ccc;">{{ featured_post.content|safe|truncatewords_html:30 }}</div>
+        <p><a href="{% url 'post_detail' featured_post.id %}" style="color: #ff00ff;">> READ MORE.EXE</a></p>
+    </div>
+    {% endif %}
+
+    <hr color="#00ff00">
+
+    <!-- STANDARD POSTS -->
+    {% for post in posts %}
+    <div style="margin-bottom: 20px;">
+        <h3><a href="{% url 'post_detail' post.id %}">{{ post.title }}</a></h3>
+        <p><small>SYSTEM DATE: {{ post.created_at|date:"Y-m-d" }} | DIR: {{ post.category.name }}</small></p>
+    </div>
+    {% empty %}
+    <p>> ERROR: No records found in the database. Awaiting admin input.</p>
+    {% endfor %}
+{% endblock %}

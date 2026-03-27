@@ -1,0 +1,187 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- CRITICAL FOR ADSENSE & MOBILE: -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Mehdi's Cafe - {% block title %}{% endblock %}</title>
+
+    <!-- Placeholder Favicon -->
+    <link rel="icon" type="image/png" href="{% static 'images/favicon.ico' %}">
+
+    <!-- Our new Grid CSS -->
+    <link rel="stylesheet" href="{% static 'css/retro.css' %}">
+
+    <meta name="description" content="Welcome to Mehdi's Cafe. A digital domain for fictional lore, worldbuilding, and creative Python scripts.">
+    <meta name="keywords" content="Mehdi's Cafe, Worldbuilding, Tona and Ila, Python scripts, RPG development">
+    <meta name="author" content="mehdimchow">
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://mehdimchow.pythonanywhere.com/">
+    <meta property="og:title" content="MEHDI'S CAFE - Serving Fresh Scripts & Stories">
+    <meta property="og:description" content="Step into a world of digital lore and creative coding.">
+    <meta property="og:image" content="https://mehdimchow.pythonanywhere.com/static/images/og-preview.jpg">
+
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://mehdimchow.pythonanywhere.com/">
+    <meta property="twitter:title" content="MEHDI'S CAFE">
+    <meta property="twitter:description" content="Digital artifacts and worldbuilding archives.">
+    <meta property="twitter:image" content="https://mehdimchow.pythonanywhere.com/static/images/og-preview.jpg">
+
+</head>
+<body>
+
+    <div class="site-wrapper">
+
+        <!-- Header Section -->
+        <header class="header-banner">
+            <h1>MEHDI'S CAFE</h1>
+            <p><i>Serving Fresh Scripts, Stories, and Solutions.</i></p>
+        </header>
+
+        <!-- Marquee -->
+        <div class="retro-marquee">
+            <marquee scrollamount="5">*** WELCOME TO THE DIGITAL DOMAIN *** NEW LORE DROPPING SOON *** [UNDER CONSTRUCTION] ***</marquee>
+        </div>
+
+        <!-- The 3-Column Grid -->
+        <div class="main-grid">
+
+            <!-- Column 1: Navigation -->
+            <nav class="left-nav">
+                <button id="music-toggle" onclick="toggleMusic()" style="background:none; border:1px solid #0f0; color:#f00; cursor:pointer; font-family:'VT323'; width:100%; margin-bottom:10px;">
+                    MUSIC: OFF
+                </button>
+                <h3>NAVIGATE</h3>
+                <ul>
+                    <li><a href="/home/">HOME.EXE</a></li>
+                    <li><a href="/blog/">THE LORE</a></li>
+                    <li><a href="/marketplace/">BAZAAR</a></li>
+                    <li><a href="/guestbook/">GUESTBOOK</a></li>
+                </ul>
+                <br>
+                <hr color="#00ff00">
+                <p>Visitor Count:</p>
+                <!-- Retro Hit Counter -->
+                <img src="https://counter.hitwebcounter.com/counter/counter.php?page=mehdimchow&style=0007&nbdigits=5&type=page&initCount=0" title="Free Counter" Alt="web counter" border="0" />
+            </nav>
+
+            <!-- Column 2: Main Content (Changes per page) -->
+            <main class="content-area">
+                {% block content %}
+                {% endblock %}
+            </main>
+
+            <!-- Column 3: AdSense Right Sidebar -->
+            <aside class="right-sidebar">
+                <h3>SPONSORS</h3>
+                <div class="ad-zone">
+                    [AdSense Sidebar Unit]<br>300x250
+                </div>
+                <div class="ad-zone">
+                    [AdSense Skyscraper Unit]<br>160x600
+                </div>
+            </aside>
+
+        </div> <!-- End of Grid -->
+
+        <!-- Footer & Bottom Ads -->
+        <footer class="site-footer">
+            <div class="ad-zone" style="max-width: 728px; margin: 0 auto 15px auto;">
+                [AdSense Leaderboard Unit]<br>728x90
+            </div>
+            <p>&copy; 2026 Mehdi's Cafe. Best viewed in Netscape Navigator.</p>
+            <!-- Phase 5 Legal Links Placeholder -->
+            <p>
+                <a href="{% url 'privacy' %}">PRIVACY.DLL</a> |
+                <a href="{% url 'terms' %}">TERMS.SYS</a> |
+                <a href="{% url 'contact' %}">CONTACT.EXE</a>
+            </p>
+        </footer>
+
+    </div> <!-- End of Site Wrapper -->
+
+    <!-- Windows 95 Cookie Dialog -->
+    <!-- Advanced Win95 Cookie Dialog -->
+<div id="cookie-dialog" class="win95-dialog" style="width: 350px;">
+    <div class="win95-title">
+        <span>SYSTEM ADVISORY</span>
+        <div class="retro-player-title-btn" onclick="acceptEssentials()">X</div>
+    </div>
+    <div class="win95-body">
+        <img src="https://win98icons.alexmeub.com/icons/png/key_padlock-0.png" width="32"><br><br>
+        <p>This server requires cookie-packets to synchronize your session with Google AdSense. Select your protocol:</p>
+
+        <button class="win95-btn" onclick="acceptAll()">[ ACCEPT ALL ]</button>
+        <button class="win95-btn" onclick="acceptEssentials()">[ ESSENTIALS ONLY ]</button>
+        <button class="win95-btn" onclick="rejectAll()">[ REJECT ALL ]</button>
+    </div>
+</div>
+
+    <audio id="clack-sound" src="https://www.soundjay.com/communication/sounds/typewriter-key-1.mp3"></audio>
+    <audio id="midi-music" loop src="https://cdn.pixabay.com/download/audio/2022/01/18/audio_d0a13f69d2.mp3"></audio>
+
+    <!-- Tab Scroller Script -->
+    <script>
+        var msg = " Mehdi's Cafe - Serving Fresh Scripts ";
+        var speed = 200;
+        function scrollTitle() {
+            document.title = msg;
+            msg = msg.substring(1, msg.length) + msg.substring(0, 1);
+            setTimeout("scrollTitle()", speed);
+        }
+        scrollTitle();
+
+        // 1. Mechanical Keyboard Clack on all Links
+        document.querySelectorAll('a, button').forEach(item => {
+            item.addEventListener('click', () => {
+                document.getElementById('clack-sound').cloneNode(true).play();
+            });
+        });
+
+        // 2. MIDI Music Control
+        function toggleMusic() {
+            let music = document.getElementById('midi-music');
+            let btn = document.getElementById('music-toggle');
+            if (music.paused) {
+                music.play();
+                btn.innerHTML = "MUSIC: ON";
+                btn.style.color = "#0f0";
+            } else {
+                music.pause();
+                btn.innerHTML = "MUSIC: OFF";
+                btn.style.color = "#f00";
+            }
+        }
+
+        function hideDialog() { document.getElementById('cookie-dialog').style.display = 'none'; }
+
+        function acceptAll() {
+            localStorage.setItem('cookie_consent', 'all');
+            alert("PROTOCOL: ALL COOKIES ENABLED");
+            hideDialog();
+        }
+
+        function acceptEssentials() {
+            localStorage.setItem('cookie_consent', 'essential');
+            alert("PROTOCOL: ESSENTIALS ONLY");
+            hideDialog();
+        }
+
+        function rejectAll() {
+            localStorage.setItem('cookie_consent', 'rejected');
+            alert("PROTOCOL: ANONYMOUS MODE ACTIVE");
+            hideDialog();
+        }
+
+        window.onload = function() {
+            if (!localStorage.getItem('cookie_consent')) {
+                setTimeout(() => { document.getElementById('cookie-dialog').style.display = 'block'; }, 2000);
+            }
+        }
+    </script>
+
+</body>
+</html>

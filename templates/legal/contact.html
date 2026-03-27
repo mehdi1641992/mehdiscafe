@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}Contact{% endblock %}
+
+{% block content %}
+    <h2>> UPLINK TO SYSADMIN</h2>
+    
+    {% if messages %}
+        {% for message in messages %}
+            <div style="border: 1px solid #0f0; padding: 10px; margin-bottom: 20px;">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+
+    <form method="POST" class="retro-form">
+        {% csrf_token %}
+        <label>OPERATOR NAME:</label><br>
+        <input type="text" name="name" required><br>
+
+        <label>RETURN ADDRESS (EMAIL):</label><br>
+        <input type="email" name="email" required><br>
+
+        <label>SUBJECT LINE:</label><br>
+        <input type="text" name="subject" required><br>
+
+        <label>ENCRYPTED MESSAGE:</label><br>
+        <textarea name="message" rows="6" style="width: 90%; background:#000; color:#0f0; border:1px solid #0f0;" required></textarea><br><br>
+
+        <button type="submit" class="win95-btn" style="color:#0f0; border-color:#0f0;">[ TRANSMIT MESSAGE ]</button>
+    </form>
+{% endblock %}

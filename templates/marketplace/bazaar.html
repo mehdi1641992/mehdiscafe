@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}The Bazaar{% endblock %}
+{% block content %}
+    <h2>> THE DIGITAL BAZAAR</h2>
+    <p>Secure transactions via external encrypted protocols. Browse the wares.</p>
+    
+    <div class="product-grid">
+        {% for product in products %}
+        <div class="product-card">
+            <img src="{{ product.image_url }}" alt="{{ product.name }}">
+            <h3>{{ product.name }}</h3>
+            <p>{{ product.description|truncatewords:15 }}</p>
+            <p><b>PRICE: {{ product.price_display }}</b></p>
+            <!-- TARGET="_BLANK" OPENS IN A NEW TAB -->
+            <a href="{{ product.external_link }}" target="_blank" class="buy-btn">> SECURE_LINK.EXE</a>
+        </div>
+        {% empty %}
+        <p><i>The merchant is currently restocking inventory...</i></p>
+        {% endfor %}
+    </div>
+
+    <!-- WEBRING SECTION -->
+    <div class="webring-box">
+        <h3 style="color: #ff0000;">+++ THE WEBRING +++</h3>
+        <p>Allies in the digital frontier:</p>
+        <ul style="list-style: none; padding: 0;">
+            {% for site in webrings %}
+            <li><a href="{{ site.site_url }}" target="_blank">[{{ site.site_name }}]</a> - {{ site.description }}</li>
+            {% empty %}
+            <li><i>The ring is currently forming...</i></li>
+            {% endfor %}
+        </ul>
+        <br>
+        <p><a href="{% url 'join_webring' %}" style="color: #ff00ff;">> SUBMIT YOUR SITE TO THE RING</a></p>
+    </div>
+{% endblock %}

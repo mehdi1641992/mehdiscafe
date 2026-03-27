@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BOOTING MEHDI'S CAFE...</title>
+    <link rel="stylesheet" href="/static/css/retro.css">
+    <style>
+        body { background: #000; color: #0f0; display: flex; justify-content: center; align-items: center; height: 100vh; overflow: hidden; }
+        #terminal { width: 80%; font-family: 'VT323', monospace; font-size: 1.5rem; }
+        .cursor { display: inline-block; width: 10px; height: 20px; background: #0f0; animation: blink 0.7s infinite; }
+        @keyframes blink { 0% { opacity: 0; } 50% { opacity: 1; } 100% { opacity: 0; } }
+        #start-btn { display: none; margin-top: 20px; background: #000; color: #ff00ff; border: 2px solid #ff00ff; padding: 10px 20px; cursor: pointer; font-family: 'VT323', monospace; font-size: 2rem; }
+        #start-btn:hover { background: #ff00ff; color: #000; }
+    </style>
+</head>
+<body>
+    <div id="terminal">
+        <div id="boot-text"></div>
+        <button id="start-btn" onclick="enterSite()">[ PRESS START ]</button>
+        <span class="cursor" id="main-cursor"></span>
+    </div>
+
+    <audio id="click-sound" src="https://www.soundjay.com/buttons/sounds/button-16.mp3"></audio>
+    <audio id="beep-sound" src="https://www.soundjay.com/buttons/sounds/beep-07.mp3"></audio>
+
+    <script>
+        const textLines = [
+            "> INITIALIZING MEHDI_OS...",
+            "> LOADING KERNEL: STORIES.SYS",
+            "> LOADING MODULE: WORLDBUILDING.DLL",
+            "> CONNECTING TO THE BAZAAR...",
+            "> HANDSHAKE PROTOCOL: SUCCESS",
+            "> WELCOME TO MEHDI'S CAFE."
+        ];
+
+        let lineIndex = 0;
+        const bootContainer = document.getElementById('boot-text');
+
+        function typeLine() {
+            if (lineIndex < textLines.length) {
+                let div = document.createElement('div');
+                div.innerHTML = textLines[lineIndex];
+                bootContainer.appendChild(div);
+                
+                // Trigger a "beep" for every line loaded
+                document.getElementById('beep-sound').cloneNode(true).play();
+                
+                lineIndex++;
+                setTimeout(typeLine, 400); // High-speed boot
+            } else {
+                document.getElementById('start-btn').style.display = 'block';
+                document.getElementById('main-cursor').style.display = 'none';
+            }
+        }
+
+        function enterSite() {
+            document.getElementById('click-sound').play();
+            setTimeout(() => {
+                window.location.href = "/home/";
+            }, 300);
+        }
+
+        window.onload = typeLine;
+    </script>
+</body>
+</html>

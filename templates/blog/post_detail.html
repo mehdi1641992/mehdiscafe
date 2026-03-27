@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}{{ post.title }}{% endblock %}
+
+{% block content %}
+    <h2>{{ post.title }}</h2>
+    <p><small>SYSTEM DATE: {{ post.created_at|date:"Y-m-d" }} | DIR: {{ post.category.name }}</small></p>
+    <!-- FEATURED IMAGE FROM EXTERNAL URL -->
+    {% if post.featured_image_url %}
+    <div style="margin: 20px 0; text-align: center;">
+        <img src="{{ post.featured_image_url }}" alt="Featured Image for {{ post.title }}" style="max-width: 100%; border: 3px double #0f0;">
+    </div>
+    {% endif %}
+
+    <div class="post-content">
+        <!-- TinyMCE outputs safe HTML, so we use the |safe filter -->
+        {{ post.content|safe }}
+    </div>
+
+    <!-- RETRO MEDIA PLAYER FOR YOUTUBE -->
+    {% if post.video_url %}
+    <div class="retro-player">
+        <div class="retro-player-title">
+            <span>Windows Media Player</span>
+            <div class="retro-player-title-btn">X</div>
+        </div>
+        <div class="retro-player-content">
+            <!-- Note: Make sure the URL added in Django Admin is an EMBED link (e.g., youtube.com/embed/...) -->
+            <iframe src="{{ post.video_url }}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+    </div>
+    {% endif %}
+
+    <hr color="#00ff00">
+    <h3>> _GUEST_COMMENTS</h3>
+    <p><i>Comment module initializing in a future patch...</i></p>
+
+    <p><a href="{% url 'post_list' %}"><< BACK TO LORE DIRECTORY</a></p>
+{% endblock %}

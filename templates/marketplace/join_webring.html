@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Join Webring{% endblock %}
+{% block content %}
+    <h2>> WEBRING APPLICATION</h2>
+    <p>Transmit your server coordinates for review by the webmaster.</p>
+
+    <form method="POST" class="retro-form" style="max-width: 500px;">
+        {% csrf_token %}
+        <label>SYSADMIN EMAIL:</label><br>
+        <input type="email" name="email" required><br>
+
+        <label>SITE NAME:</label><br>
+        <input type="text" name="site_name" required><br>
+
+        <label>SITE URL (http://...):</label><br>
+        <input type="url" name="site_url" required><br>
+
+        <label>SHORT DESCRIPTION:</label><br>
+        <textarea name="description" rows="4" required></textarea><br>
+
+        <button type="submit" class="buy-btn">> TRANSMIT DATA</button>
+    </form>
+    <p><a href="{% url 'bazaar' %}"><< ABORT AND RETURN</a></p>
+{% endblock %}
