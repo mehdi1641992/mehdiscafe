@@ -7,6 +7,7 @@ from django.contrib import messages        # <--- ADD THIS
 from django.conf import settings           # <--- ADD THIS
 from blog.models import Post
 from marketplace.models import Product
+from blog import views as blog_views
 import os
 
 
@@ -79,8 +80,8 @@ urlpatterns = [
     path('home/', home, name='home'),        # /home/ goes to home.html
     path('blog/', include('blog.urls')),     # /blog/ routes to your lore
     path('marketplace/', include('marketplace.urls')),
-    path('privacy/', privacy, name='privacy'),
-    path('terms/', terms, name='terms'),
+    path('terms/', blog_views.legal_page, {'slug': 'terms'}, name='terms'),
+    path('privacy/', blog_views.legal_page, {'slug': 'privacy'}, name='privacy'),
     path('contact/', contact, name='contact'),
     path('sitemap.xml', sitemap),
     path('robots.txt', lambda r: HttpResponse(open('/home/mehdimchow/mehdicafe/static/robots.txt').read(), content_type="text/plain")),

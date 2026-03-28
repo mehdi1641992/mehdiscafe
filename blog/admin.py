@@ -1,26 +1,25 @@
 from django.contrib import admin
-from .models import Category, Post, Comment
+from .models import Post, Category, Comment, LegalPage
+
+@admin.register(Category)
+class CategoryAdmin(admin.ModelAdmin):
+    list_display = ('name',)
 
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
-    list_display = ('title', 'category', 'is_featured', 'created_at')
-    
-    fieldsets = (
-        ('Main Editor', {
-            'fields': ('title', 'content'),
-            'classes': ('main-column',), 
-        }),
-        ('Post Settings', {
-            # UPDATED: We swapped 'image' for 'featured_image_url' here
-            'fields': ('category', 'tags', 'featured_image_url', 'video_url', 'is_featured'),
-            'classes': ('sidebar-column',),
-        }),
-    )
+    list_display = ('title', 'category', 'created_at', 'is_featured')
+    list_filter = ('category', 'is_featured', 'created_at')
+    search_fields = ('title', 'content')
 
-    class Media:
-        css = {
-            'all': ('css/modern_admin.css',)
-        }
+# 1. The Comment Admin (Only registered ONCE)
+@admin.register(Comment)
+class CommentAdmin(admin.ModelAdmin):
+    list_display = ('author', 'post', 'created_at', 'is_approved')
+    list_filter = ('is_approved', 'created_at')
+    search_fields = ('author', 'body')
 
-admin.site.register(Category)
-admin.site.register(Comment)
+# 2. The Legal Page Admin
+@admin.register(LegalPage)
+class LegalPageAdmin(admin.ModelAdmin):
+    list_display = ('title', 'slug', 'updated_at')
+    prepopulated_fields = {'slug': ('title',)}

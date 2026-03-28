@@ -35,7 +35,7 @@
         <!-- Pagination Dots -->
         <div class="absolute bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-2 z-10">
             {% for post in featured_posts %}
-            <button onclick="goToSlide({{ forloop.counter0 }})" 
+            <button onclick="goToSlide({{ forloop.counter0 }})"
                     class="carousel-dot h-2 rounded-full transition-all duration-300 {% if forloop.first %}w-6 bg-white{% else %}w-2 bg-white/50 hover:bg-white/75{% endif %}">
             </button>
             {% endfor %}
@@ -78,7 +78,7 @@
     <!-- THE HIDDEN FILTER MODAL (This is what opens when you click Filter) -->
     <div id="filter-modal" class="hidden fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 flex items-center justify-center p-4 opacity-0 transition-opacity duration-300">
         <div class="bg-white rounded-3xl w-full max-w-2xl shadow-2xl border border-slate-200 overflow-hidden transform scale-95 transition-transform duration-300" id="filter-modal-content">
-            
+
             <div class="p-6 border-b border-slate-100 flex justify-between items-center bg-slate-50">
                 <h4 class="font-black text-slate-900 flex items-center gap-2"><i class="ph ph-funnel text-blue-600"></i> Refine Search</h4>
                 <button type="button" onclick="toggleFilterModal()" class="text-slate-400 hover:text-red-500 transition"><i class="ph ph-x-circle text-2xl"></i></button>
@@ -166,6 +166,17 @@
             </a>
         </div>
     </div>
+    {% if forloop.counter == 3 %} <!-- Injects the ad as the 3rd item in the grid -->
+<div class="aspect-[2/3] bg-slate-50 rounded-xl border border-slate-200 shadow-sm p-4 relative flex flex-col justify-center items-center overflow-hidden">
+    <span class="absolute top-2 left-2 text-[9px] font-black tracking-widest uppercase text-slate-400">Sponsored</span>
+    <ins class="adsbygoogle"
+         style="display:block; width:100%; height:100%;"
+         data-ad-format="fluid"
+         data-ad-layout-key="-fb+5w+4e-db+86"
+         data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+         data-ad-slot="XXXXXXXXXXXXXXXX"></ins>
+</div>
+{% endif %}
     {% endfor %}
 </div>
 
@@ -184,7 +195,7 @@
     // Modal Logic
     const modal = document.getElementById('filter-modal');
     const modalContent = document.getElementById('filter-modal-content');
-    
+
     function toggleFilterModal() {
         if (!modal) return;
         if (modal.classList.contains('hidden')) {
@@ -211,9 +222,9 @@
 
     function updateCarousel() {
         if (!carousel || totalItems === 0) return;
-        
+
         carousel.style.transform = `translateX(-${currentIdx * 100}%)`;
-        
+
         dots.forEach((dot, index) => {
             if (index === currentIdx) {
                 dot.classList.add('w-6', 'bg-white');

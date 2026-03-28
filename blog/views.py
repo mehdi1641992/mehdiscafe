@@ -1,7 +1,7 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.core.paginator import Paginator
 from django.db.models import Q
-from .models import Post, Category, Tag
+from .models import Post, Category, Tag, Comment, LegalPage
 
 def post_list(request):
     # 1. Capture GET parameters
@@ -36,16 +36,16 @@ def post_list(request):
         # Grabs ONLY the newest featured post
         featured_main = Post.objects.filter(is_featured=True).order_by('-created_at').first()
         exclude_ids = [featured_main.id] if featured_main else []
-        
+
         # Grabs the 3 latest posts (excluding the featured one so it doesn't show twice in the carousel)
         latest_three = Post.objects.exclude(id__in=exclude_ids).order_by('-created_at')[:3]
-        
+
         if featured_main:
             featured_carousel.append(featured_main)
-            
+
         featured_carousel.extend(list(latest_three))
-        
-        # REMOVED the code that excluded these from all_posts! 
+
+        # REMOVED the code that excluded these from all_posts!
         # Now they will show up in the grid below as well.
 
     # 5. Pagination
@@ -82,4 +82,26 @@ def post_list(request):
 
 def post_detail(request, post_id):
     post = get_object_or_404(Post, id=post_id)
-    return render(request, 'blog/post_detail.html', {'post': post})
+    # Fetch all approved comments for this specific post
+    comments = post.comments.filter(is_approved=True).order_by('-created_at')
+
+    # Handle the comment form submission
+    if request.method == 'POST':
+        author = request.POST.get('author')
+        body = request.POST.get('body')
+
+        if author and body:
+            Comment.objects.create(post=post, author=author, body=body)
+            # Refresh the page to show the new comment
+            return redirect('post_detail', post_id=post.id)
+
+    return render(request, 'blog/post_detail.html', {
+        'post': post,
+        'comments': comments
+    })
+
+def legal_page(request, slug):
+    # Fetch the page from the database
+    page = get_object_or_404(LegalPage, slug=slug)
+    # Dynamically render templates/legal/terms.html OR templates/legal/privacy.html
+    return render(request, f'legal/{slug}.html', {'page': page})

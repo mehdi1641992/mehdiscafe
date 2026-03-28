@@ -34,6 +34,20 @@ class Post(models.Model):
 
 class Comment(models.Model):
     post = models.ForeignKey(Post, related_name='comments', on_delete=models.CASCADE)
-    author = models.CharField(max_length=100)
-    text = models.TextField()
+    author = models.CharField(max_length=80)
+    body = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
+    is_approved = models.BooleanField(default=True) # Set to False if you want to manually approve them first
+
+    def __str__(self):
+        return f"Comment by {self.author} on {self.post.title}"
+
+class LegalPage(models.Model):
+    title = models.CharField(max_length=200)
+    slug = models.SlugField(unique=True, help_text="Use 'terms' or 'privacy'")
+    content = HTMLField()
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.title
+

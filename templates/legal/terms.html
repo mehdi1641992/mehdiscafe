@@ -1,27 +1,11 @@
 {% extends "base.html" %}
-
-{% block title %}Terms of Service{% endblock %}
+{% block title %}{{ page.title }}{% endblock %}
 
 {% block content %}
-    <h2>> SYSTEM_TERMS.SYS</h2>
-    <p>By accessing <b>Mehdi's Cafe</b>, you agree to the following protocols:</p>
-
-    <div style="background: #000; border: 2px solid #0f0; padding: 20px; font-family: 'Courier New', Courier, monospace; color: #0f0;">
-        <p><b>1. ACCEPTANCE:</b> By navigating this digital domain, you acknowledge that you are entering a space dedicated to worldbuilding, AI experiments, and creative lore. Proceed at your own risk of immersion.</p>
-
-        <p><b>2. INTELLECTUAL PROPERTY:</b> All characters (specifically <b>Tona</b> and <b>Ila</b>), world-building documents, and custom Python scripts are the property of <b>mehdimchow</b> unless otherwise stated. Do not replicate without a valid handshake protocol (written permission).</p>
-
-        <p><b>3. EXTERNAL LINKS:</b> Our <b>Bazaar</b> and <b>Webring</b> contain links to external sectors of the web (Pinterest, Amazon, Gumroad). We are not responsible for the data integrity or security of these external nodes.</p>
-
-        <p><b>4. LIMITATION OF LIABILITY:</b> We are not liable for any digital "brain-lag" caused by nostalgia, 8-bit music loops, or neon green color schemes. Use a modern browser (or Netscape, if you're brave) for the best experience.</p>
-
-        <p><b>5. UPDATES:</b> These terms are subject to change without notice as the simulation evolves.</p>
-        
-        <hr color="#0f0">
-        <p style="text-align: center;">[ END OF TRANSMISSION ]</p>
+<div class="max-w-4xl mx-auto bg-white border border-slate-200 rounded-3xl p-8 md:p-12 mt-10">
+    <div class="prose prose-slate max-w-none">
+        <!-- THIS IS THE MAGIC TAG -->
+        {{ page.content|safe }}
     </div>
-
-    <p style="margin-top: 20px;">
-        <a href="{% url 'home' %}"><< RETURN TO ROOT_DIR</a>
-    </p>
+</div>
 {% endblock %}

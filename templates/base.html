@@ -12,7 +12,7 @@
     <link rel="icon" type="image/png" href="{% static 'images/favicon.ico' %}">
 
     <!-- Our new Grid CSS -->
-    
+
     <meta name="description" content="Welcome to Mehdi's Cafe. A digital domain for fictional lore, worldbuilding, and creative Python scripts.">
     <meta name="keywords" content="Mehdi's Cafe, Worldbuilding, Tona and Ila, Python scripts, RPG development">
     <meta name="author" content="mehdimchow">
@@ -32,7 +32,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
-    
+
     <script>
         tailwind.config = {
             theme: {
@@ -52,12 +52,12 @@
 
     <div id="ad-bait" class="adsbygoogle" style="position:absolute; left:-9999px;">&nbsp;</div>
     <div id="adblock-msg" class="hidden bg-amber-50 border-b border-amber-200 text-amber-800 px-4 py-2 text-center text-sm font-medium sticky top-0 z-50">
-        <i class="ph ph-warning-circle align-middle mr-1 text-lg"></i> 
+        <i class="ph ph-warning-circle align-middle mr-1 text-lg"></i>
         SYSTEM_ADVISORY: AD-BLOCKER DETECTED. PLEASE WHITELIST THIS NODE TO SUPPORT UPTIME.
     </div>
 
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-        
+
         <header class="mb-12 border-b border-slate-200 pb-8">
             <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
                 <div>
@@ -66,7 +66,7 @@
                     </h1>
                     <p class="text-slate-500 font-medium italic">Serving Fresh Scripts, Stories, and Solutions.</p>
                 </div>
-                
+
                 <nav class="flex flex-wrap gap-x-6 gap-y-2 text-sm font-bold uppercase tracking-widest text-slate-600">
                     <a href="/home/" class="hover:text-blue-600 transition flex items-center gap-1"><i class="ph ph-house-line"></i> Home</a>
                     <a href="/blog/" class="hover:text-blue-600 transition flex items-center gap-1"><i class="ph ph-books"></i> Lore</a>
@@ -74,10 +74,18 @@
                     <a href="/contact/" class="hover:text-blue-600 transition flex items-center gap-1"><i class="ph ph-paper-plane-tilt"></i> Contact</a>
                 </nav>
             </div>
+            <div class="max-w-7xl mx-auto px-4 mb-8 flex justify-center min-h-[90px] bg-slate-50/50 rounded-2xl">
+    <ins class="adsbygoogle"
+         style="display:block; width:100%; max-width:728px; height:90px;"
+         data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+         data-ad-slot="XXXXXXXXXXXXXXXX"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+</div>
         </header>
 
         <div class="grid grid-cols-1 lg:grid-cols-4 gap-10">
-            
+
             <aside class="space-y-8">
                 <div class="bg-white border border-slate-200 rounded-xl p-5 shadow-sm">
                     <h3 class="text-xs font-black uppercase tracking-widest text-slate-400 mb-4 flex items-center gap-2">
@@ -133,44 +141,42 @@
                 <span class="text-[10px] font-bold text-slate-400 block mb-2 uppercase tracking-widest">Sponsor Space</span>
                 <div class="text-slate-400 italic text-sm">[ AdSense Leaderboard Unit ]</div>
             </div>
-            
+
             <div class="flex flex-col md:flex-row justify-between items-center gap-4 text-slate-500 text-xs font-medium">
-                <p>&copy; 2026 MEHDI'S CAFE. DATA_MESH_V1.5</p>
-                <div class="flex gap-4">
-                    <a href="{% url 'privacy' %}" class="hover:text-blue-600 underline decoration-slate-300 underline-offset-4">PRIVACY_POLICY</a>
-                    <a href="{% url 'terms' %}" class="hover:text-blue-600 underline decoration-slate-300 underline-offset-4">TERMS_OF_SERVICE</a>
-                    <a href="https://github.com/mehdi1641992/mehdiscafe" class="hover:text-blue-600 underline decoration-slate-300 underline-offset-4">GITHUB_REPO</a>
-                </div>
-            </div>
+    <p>&copy; 2026 MEHDI'S CAFE. DATA_MESH_V1.5</p>
+    <div class="flex gap-4">
+        <!-- Replaced {{ site_name }} with the actual names -->
+        <a href="{% url 'privacy' %}" class="hover:text-blue-600 underline decoration-slate-300 underline-offset-4">PRIVACY_POLICY</a>
+        <a href="{% url 'terms' %}" class="hover:text-blue-600 underline decoration-slate-300 underline-offset-4">TERMS_OF_SERVICE</a>
+        <a href="https://github.com/mehdi1641992/mehdiscafe" class="hover:text-blue-600 underline decoration-slate-300 underline-offset-4">GITHUB_REPO</a>
+    </div>
+</div>
         </footer>
     </div>
 
-    <div id="cookie-dialog" class="hidden fixed bottom-6 right-6 w-full max-w-[360px] bg-white border border-slate-200 rounded-2xl shadow-2xl p-6 z-[100] animate-in slide-in-from-bottom-5 duration-500">
-        <div class="flex items-start gap-4">
-            <div class="bg-amber-100 p-3 rounded-full">
-                <i class="ph ph-cookie text-2xl text-amber-600"></i>
-            </div>
-            <div class="flex-1">
-                <h4 class="font-bold text-slate-900 text-sm">Security Manifest Required</h4>
-                <p class="text-xs text-slate-500 mt-1 leading-relaxed">This node uses cookie-packets to sync your session and AdSense telemetry.</p>
-                
-                <div class="mt-4 flex flex-col gap-2">
-                    <button onclick="acceptAll()" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg text-xs font-bold transition">Accept All</button>
-                    <div class="grid grid-cols-2 gap-2">
-                        <button onclick="toggleDetails()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 py-2 rounded-lg text-[10px] font-bold transition">View Manifest</button>
-                        <button onclick="rejectAll()" class="bg-white border border-slate-200 hover:bg-slate-50 text-slate-500 py-2 rounded-lg text-[10px] font-bold transition">Reject All</button>
-                    </div>
-                </div>
-
-                <div id="cookie-details" class="hidden mt-4 bg-slate-50 rounded-lg p-3 border border-slate-200 text-[10px] font-mono text-slate-600 leading-tight">
-                    <p class="font-bold border-b border-slate-200 pb-1 mb-2">ACTIVE_LOG:</p>
-                    <p>• csrftoken: Security/Anti-Forgery</p>
-                    <p>• sessionid: Server Uplink ID</p>
-                    <p>• _ga/_gads: AdSense Analytics</p>
-                </div>
-            </div>
+    <div id="cookie-banner" class="hidden fixed bottom-0 left-0 w-full bg-slate-900 border-t border-slate-700 shadow-2xl z-[100] p-6 md:p-8 text-white transform transition-transform duration-500 translate-y-full">
+    <div class="max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-6">
+        <div class="flex-1">
+            <h4 class="text-lg font-black tracking-tight mb-2 flex items-center gap-2">
+                <i class="ph ph-cookie text-blue-400"></i> Data & Cookie Preferences
+            </h4>
+            <p class="text-sm text-slate-400 leading-relaxed max-w-4xl">
+                We use cookies to ensure this site functions properly and to support our work.
+                <b class="text-slate-200">Essential cookies</b> are always active as they are required for security and network management.
+                <b class="text-slate-200">Marketing & Analytics cookies</b> (provided by Google AdSense) are used to personalize ads and analyze traffic. If you decline, no non-essential cookies will be stored.
+                <a href="/legal/privacy/" class="text-blue-400 underline hover:text-blue-300">Read our Privacy Policy</a>.
+            </p>
+        </div>
+        <div class="flex items-center gap-3 w-full lg:w-auto shrink-0">
+            <button onclick="handleCookies('reject')" class="flex-1 lg:flex-none px-6 py-3 rounded-xl font-bold text-sm bg-slate-800 text-slate-300 hover:bg-slate-700 transition">
+                Reject Non-Essential
+            </button>
+            <button onclick="handleCookies('accept')" class="flex-1 lg:flex-none px-8 py-3 rounded-xl font-black text-sm bg-blue-600 text-white hover:bg-blue-500 transition shadow-lg shadow-blue-900/50">
+                Accept All
+            </button>
         </div>
     </div>
+</div>
 
     <audio id="clack-sound" src="https://www.soundjay.com/communication/sounds/typewriter-key-1.mp3"></audio>
     <audio id="midi-music" loop src="https://cdn.pixabay.com/download/audio/2022/01/18/audio_d0a13f69d2.mp3"></audio>
@@ -189,6 +195,45 @@
                 setTimeout(() => { document.getElementById('cookie-dialog').classList.remove('hidden'); }, 2000);
             }
         });
+
+        const banner = document.getElementById('cookie-banner');
+    const userConsent = localStorage.getItem('site_cookie_consent');
+
+    // 1. Check if user already made a choice
+    if (!userConsent) {
+        banner.classList.remove('hidden');
+        setTimeout(() => banner.classList.remove('translate-y-full'), 100);
+    } else if (userConsent === 'accept') {
+        loadAdSense(); // Only load ads if they previously accepted
+    }
+
+    // 2. Handle the button clicks
+    function handleCookies(choice) {
+        localStorage.setItem('site_cookie_consent', choice);
+        banner.classList.add('translate-y-full');
+        setTimeout(() => banner.classList.add('hidden'), 500);
+
+        if (choice === 'accept') {
+            loadAdSense();
+        }
+    }
+
+    // 3. The Script Injector (Keeps AdSense blocked until called)
+    function loadAdSense() {
+        // Prevent loading it twice
+        if (document.getElementById('adsense-script')) return;
+
+        const script = document.createElement('script');
+        script.id = 'adsense-script';
+        // REPLACE with your actual AdSense Client ID
+        script.src = "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX";
+        script.async = true;
+        script.crossOrigin = "anonymous";
+        document.head.appendChild(script);
+
+        // Push empty ad objects for any ad placeholders on the page
+        (adsbygoogle = window.adsbygoogle || []).push({});
+    }
 
         // Mechanical Click Sound
         document.querySelectorAll('a, button').forEach(item => {
@@ -228,14 +273,14 @@
         function hideDialog() { document.getElementById('cookie-dialog').classList.add('hidden'); }
         function acceptAll() { localStorage.setItem('cookie_consent', 'all'); hideDialog(); }
         function rejectAll() { localStorage.setItem('cookie_consent', 'rejected'); hideDialog(); }
-        
+
         async function updateCounter() {
             const counterElement = document.getElementById('hit-counter');
             try {
                 // This tracks visits specific to your site key: mehdiscafe-v1
                 const response = await fetch('https://api.counterapi.dev/v1/mehdiscafe-v1/hit/up');
                 const data = await response.json();
-    
+
                 // Formats the number to always have 5 digits (e.g., 00123)
                 const count = data.count.toString().padStart(5, '0');
                 counterElement.innerText = count;
