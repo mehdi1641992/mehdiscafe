@@ -1,7 +1,9 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.core.paginator import Paginator
 from django.db.models import Q
-from .models import Post, Category, Tag, Comment, LegalPage
+from .models import Post, Category, Comment, LegalPage
+from taggit.models import Tag
+import random
 
 def post_list(request):
     # 1. Capture GET parameters
@@ -82,8 +84,13 @@ def post_list(request):
 
 def post_detail(request, post_id):
     post = get_object_or_404(Post, id=post_id)
+    related_posts = Post.objects.filter(category=post.category).exclude(id=post.id).order_by('?')[:3]
     # Fetch all approved comments for this specific post
     comments = post.comments.filter(is_approved=True).order_by('-created_at')
+
+    if related_posts.count() < 3:
+        latest_fallback = Post.objects.exclude(id=post.id).exclude(id__in=[p.id for p in related_posts]).order_by('-created_at')[:3 - related_posts.count()]
+        related_posts = list(related_posts) + list(latest_fallback)
 
     # Handle the comment form submission
     if request.method == 'POST':

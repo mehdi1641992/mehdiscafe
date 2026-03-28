@@ -15,7 +15,7 @@
                     <h2 class="text-4xl md:text-5xl font-black text-white mb-3 tracking-tighter uppercase">{{ post.title }}</h2>
                     <p class="text-slate-300 text-sm mb-6 max-w-xl line-clamp-2">{{ post.content|striptags|truncatewords:20 }}</p>
                     <a href="{% url 'post_detail' post.id %}" class="text-white font-bold text-sm tracking-widest hover:text-blue-400 transition">
-                        <b>READ.txt</b>
+                        <b>READ ME.txt</b>
                     </a>
                 </div>
             </div>
@@ -162,7 +162,7 @@
             </h4>
 
             <a href="{% url 'post_detail' post.id %}" class="inline-flex items-center justify-center w-full bg-slate-950 text-white text-[10px] font-black tracking-widest uppercase py-3 rounded-lg hover:bg-blue-600 transition-all shadow-lg">
-                READ.txt
+                READ ME.txt
             </a>
         </div>
     </div>

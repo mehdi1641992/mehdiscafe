@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- CRITICAL FOR ADSENSE & MOBILE: -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Mehdi's Cafe</title>
+
+
+    <!-- Our new Grid CSS -->
+
+    <meta name="description" content="Welcome to Mehdi's Cafe. A digital domain for fictional lore, worldbuilding, and creative Python scripts.">
+    <meta name="keywords" content="Mehdi's Cafe, Worldbuilding, Tona and Ila, Python scripts, RPG development">
+    <meta name="author" content="mehdimchow">
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://mehdimchow.pythonanywhere.com/">
+    <meta property="og:title" content="MEHDI'S CAFE - Serving Fresh Scripts & Stories">
+    <meta property="og:description" content="Step into a world of digital lore and creative coding.">
+    <meta property="og:image" content="https://mehdimchow.pythonanywhere.com/static/images/og-preview.jpg">
+
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://mehdimchow.pythonanywhere.com/">
+    <meta property="twitter:title" content="MEHDI'S CAFE">
+    <meta property="twitter:description" content="Digital artifacts and worldbuilding archives.">
+    <meta property="twitter:image" content="https://mehdimchow.pythonanywhere.com/static/images/og-preview.jpg">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        serif: ['"Cormorant Garamond"', 'serif'],
+                        sans: ['"Inter"', 'sans-serif']
+                    }
+                }
+            }
+            // Ensure you have a standard Tailwind typography plugin enabled to handle paragraph spacing
+        }
+    </script>
+</head>
+<body class="bg-[#F6F8F9] min-h-screen font-sans">
+
+    <div class="flex min-h-screen">
+
+        <div class="flex-[70] p-10 md:p-16 flex flex-col">
+
+            <nav class="flex items-center justify-between gap-8 text-sm font-semibold mb-16 tracking-tight text-slate-800 border-b border-slate-100 pb-6">
+                <div class="flex items-center gap-1.5 text-slate-500 font-medium">
+                    <span>Three Islands</span>
+                </div>
+                <div class="flex items-center gap-6">
+                    <a href="{% url 'post_list' %}" class="hover:text-blue-600 transition">Lores</a>
+                    <a href="{% url 'bazaar' %}" class="hover:text-blue-600 transition">Bazaar</a>
+                    <a href="{% url 'contact' %}" class="hover:text-blue-600 transition">Contact</a>
+                    <a href="{% url 'home' %}" class="flex items-center gap-2 bg-slate-900 text-white px-5 py-2.5 rounded-xl text-xs hover:bg-blue-600 transition shadow-md">
+                        <i class="ph ph-house"></i> RETURN_HOME.EXE
+                    </a>
+                </div>
+            </nav>
+
+            <div class="max-w-3xl mb-12">
+    <div class="font-sans text-xs flex gap-6 mt-8 border border-slate-100 bg-white inline-flex p-3 px-5 rounded-full shadow-sm text-slate-500 font-bold mb-10 tracking-wider">
+        <span class="text-blue-600 flex items-center gap-1.5"><i class="ph ph-user-circle"></i> OPERATOR_PROFILE</span>
+        <span class="border-l border-slate-100 pl-4">DURING</span>
+        <span>14.03.2023</span>
+    </div>
+    <h1 class="font-serif text-6xl md:text-7xl lg:text-8xl font-light text-slate-950 leading-tight tracking-tight mb-2">Mehdi Morshed Chowdhury – the way of Ambition</h1>
+    <span class="block text-slate-300 text-2xl font-serif mt-3">উচ্চাকাঙ্ক্ষার পথ</span>
+</div>
+
+<div class="flex gap-12 max-w-7xl prose prose-slate max-w-none text-slate-700 leading-relaxed font-sans text-base">
+
+    <div class="flex-[30] pr-6 border-r border-slate-100 space-y-5 italic font-medium">
+        <p>"I don't just use tools — I build systems. I don't just tell stories — I build worlds. And I don't just observe Bangladesh — I am trying, in my own way, to help build it."</p>
+    </div>
+
+    <div class="flex-[70] space-y-6 max-w-3xl">
+        <p>I am a builder at heart: part technician, part storyteller, part analyst. My work lives at the intersection of modern technology and the specific, often overlooked needs of Bangladesh. I write code and I write poetry. I design AI agents and I design characters with lore and personality. What holds it all together is a stubborn belief that imagination and precision are not opposites — they are collaborators.</p>
+
+        <p>On the technical side, I work as an AI orchestrator and automation specialist. I build dashboards, assessment systems, and intelligent workflows using Google Apps Script and Python. But more than executing tasks, I design the logic behind things — the system prompts, the front-end experiences, the decision trees that make an AI agent actually useful for something specific, whether that's tracking global political shifts through a Bangladeshi lens or powering an RPG world.</p>
+
+        <p>Creatively, I am a world-builder. I write in both English and Bengali, shifting registers depending on what a piece demands: a polished love letter, a political essay, or a quiet poem. I have developed original characters like Tona bhai and Ila, and I use AI not to replace my imagination but to give it visual form. I am also building toward something entrepreneurial: the Ayah by Ayah Quran Reflection Journal, Notion templates, a personal brand called Mehdi's Cafe; these are not scattered interests but deliberate bets on scalable, meaningful digital assets.</p>
+
+        <p>Underneath all of this runs a current of social purpose. I am researching how blended learning can work inside Bangladesh's large, under-resourced classrooms. I think about how technology can modernize systems that have been slow to change. My faith matters to me too; the reflective, inward dimension of my work is just as real as the outward ambition. I am trying to build a life where analytical rigour, cultural rootedness, spiritual depth, and creative drive are not in tension. They are the same path.</p>
+    </div>
+
+</div>
+
+        </div>
+
+        <div class="flex-[30] bg-white border-l border-slate-200 sticky top-0 h-screen overflow-hidden rounded-t-[40px]">
+            <img src='https://i.postimg.cc/HnR75w23/20231231-145727.jpg' border='0' alt='20231231-145727' class="w-full h-full object-cover">
+        </div>
+
+    </div>
+
+</body>
+</html>

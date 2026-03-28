@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Post, Category, Comment, LegalPage
+from .models import Post, Category, Comment, LegalPage, SystemStatus
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
@@ -23,3 +23,8 @@ class CommentAdmin(admin.ModelAdmin):
 class LegalPageAdmin(admin.ModelAdmin):
     list_display = ('title', 'slug', 'updated_at')
     prepopulated_fields = {'slug': ('title',)}
+
+@admin.register(SystemStatus)
+class SystemStatusAdmin(admin.ModelAdmin):
+    # Update this list to ONLY include the field currently in your model
+    list_display = ('active_mood',)

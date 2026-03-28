@@ -65,6 +65,38 @@
     </div>
 </article>
 
+<!-- Read Next Section -->
+<section class="max-w-4xl mx-auto mt-20 border-t border-slate-100 pt-16 mb-20">
+    <div class="flex items-center justify-between mb-10">
+        <h3 class="text-xs font-black uppercase tracking-[0.2em] text-blue-600 flex items-center gap-2">
+            <i class="ph-bold ph-read-cv-logo"></i> Recommended_Nodes
+        </h3>
+        <a href="{% url 'post_list' %}" class="text-xs font-bold text-slate-400 hover:text-slate-900 transition">VIEW_ALL.EXE</a>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        {% for related in related_posts %}
+        <a href="{% url 'post_detail' related.id %}" class="group block">
+            <div class="aspect-video w-full mb-4 overflow-hidden rounded-2xl bg-slate-100 border border-slate-200">
+                {% if related.image %}
+                    <img src="{{ related.image.url }}" alt="{{ related.title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                {% else %}
+                    <div class="w-full h-full flex items-center justify-center text-slate-300">
+                        <i class="ph ph-file-text text-3xl"></i>
+                    </div>
+                {% endif %}
+            </div>
+            <span class="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2 block">{{ related.category.name }}</span>
+            <h4 class="font-bold text-slate-900 group-hover:text-blue-600 transition-colors leading-snug">
+                {{ related.title|truncatechars:50 }}
+            </h4>
+        </a>
+        {% empty %}
+        <p class="text-sm text-slate-400 italic">No further data nodes available in current sector.</p>
+        {% endfor %}
+    </div>
+</section>
+
 <!-- UNLOCKED COMMENTS SECTION -->
 <div class="mt-16 pt-8 border-t border-slate-200">
     <h3 class="text-2xl font-black text-slate-900 mb-8 flex items-center gap-2">

@@ -1,29 +1,210 @@
 {% extends "base.html" %}
 {% block title %}Contact{% endblock %}
-
 {% block content %}
-    <h2>> UPLINK TO SYSADMIN</h2>
-    
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@300;400&display=swap');
+
+  .contact-wrapper {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 24px;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  .contact-inner {
+    width: 100%;
+    max-width: 560px;
+  }
+
+  .contact-header {
+    margin-bottom: 48px;
+  }
+
+  .contact-header h2 {
+    font-size: 13px;
+    font-family: 'DM Mono', monospace;
+    font-weight: 400;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    opacity: 0.4;
+    margin: 0 0 16px 0;
+  }
+
+  .contact-header p {
+    font-size: 32px;
+    font-weight: 300;
+    line-height: 1.2;
+    margin: 0;
+    letter-spacing: -0.02em;
+  }
+
+  /* Flash messages */
+  .flash-messages {
+    margin-bottom: 32px;
+  }
+
+  .flash-message {
+    font-size: 13px;
+    font-family: 'DM Mono', monospace;
+    padding: 14px 18px;
+    border-radius: 6px;
+    background: rgba(34, 197, 94, 0.08);
+    border: 1px solid rgba(34, 197, 94, 0.2);
+    color: #16a34a;
+    margin-bottom: 10px;
+    letter-spacing: 0.02em;
+  }
+
+  /* Form fields */
+  .field-group {
+    margin-bottom: 28px;
+  }
+
+  .field-group label {
+    display: block;
+    font-size: 11px;
+    font-family: 'DM Mono', monospace;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    opacity: 0.45;
+    margin-bottom: 8px;
+    font-weight: 400;
+  }
+
+  .field-group input,
+  .field-group textarea {
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid currentColor;
+    border-color: rgba(128, 128, 128, 0.25);
+    padding: 10px 0;
+    font-size: 15px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 400;
+    outline: none;
+    transition: border-color 0.2s ease;
+    box-sizing: border-box;
+    border-radius: 0;
+    color: inherit;
+  }
+
+  .field-group textarea {
+    resize: none;
+    line-height: 1.6;
+    min-height: 120px;
+  }
+
+  .field-group input:focus,
+  .field-group textarea:focus {
+    border-color: currentColor;
+    opacity: 1;
+  }
+
+  .field-group input::placeholder,
+  .field-group textarea::placeholder {
+    opacity: 0.25;
+    font-size: 14px;
+  }
+
+  /* Divider */
+  .form-divider {
+    height: 1px;
+    background: rgba(128, 128, 128, 0.12);
+    margin: 36px 0;
+  }
+
+  /* Submit */
+  .submit-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+
+  .submit-hint {
+    font-size: 12px;
+    font-family: 'DM Mono', monospace;
+    opacity: 0.3;
+    letter-spacing: 0.05em;
+  }
+
+  .btn-submit {
+    background: none;
+    border: 1px solid rgba(128, 128, 128, 0.35);
+    padding: 12px 28px;
+    font-size: 12px;
+    font-family: 'DM Mono', monospace;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    color: inherit;
+    border-radius: 4px;
+    transition: background 0.2s ease, border-color 0.2s ease, opacity 0.2s ease;
+    white-space: nowrap;
+  }
+
+  .btn-submit:hover {
+    background: rgba(128, 128, 128, 0.08);
+    border-color: rgba(128, 128, 128, 0.6);
+  }
+
+  .btn-submit:active {
+    opacity: 0.6;
+  }
+</style>
+
+<div class="contact-wrapper">
+  <div class="contact-inner">
+
+    <div class="contact-header">
+      <h2>Get in touch</h2>
+      <p>Send a message.<br>I'll get back to you.</p>
+    </div>
+
     {% if messages %}
+      <div class="flash-messages">
         {% for message in messages %}
-            <div style="border: 1px solid #0f0; padding: 10px; margin-bottom: 20px;">{{ message }}</div>
+          <div class="flash-message">{{ message }}</div>
         {% endfor %}
+      </div>
     {% endif %}
 
-    <form method="POST" class="retro-form">
-        {% csrf_token %}
-        <label>OPERATOR NAME:</label><br>
-        <input type="text" name="name" required><br>
+    <form method="POST">
+      {% csrf_token %}
 
-        <label>RETURN ADDRESS (EMAIL):</label><br>
-        <input type="email" name="email" required><br>
+      <div class="field-group">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" placeholder="Your name" required>
+      </div>
 
-        <label>SUBJECT LINE:</label><br>
-        <input type="text" name="subject" required><br>
+      <div class="field-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" placeholder="you@example.com" required>
+      </div>
 
-        <label>ENCRYPTED MESSAGE:</label><br>
-        <textarea name="message" rows="6" style="width: 90%; background:#000; color:#0f0; border:1px solid #0f0;" required></textarea><br><br>
+      <div class="field-group">
+        <label for="subject">Subject</label>
+        <input type="text" id="subject" name="subject" placeholder="What's this about?" required>
+      </div>
 
-        <button type="submit" class="win95-btn" style="color:#0f0; border-color:#0f0;">[ TRANSMIT MESSAGE ]</button>
+      <div class="field-group">
+        <label for="message">Message</label>
+        <textarea id="message" name="message" rows="5" placeholder="Write your message here…" required></textarea>
+      </div>
+
+      <div class="form-divider"></div>
+
+      <div class="submit-row">
+        <span class="submit-hint">Encrypted & secure</span>
+        <button type="submit" class="btn-submit">Send message</button>
+      </div>
+
     </form>
+  </div>
+</div>
+
 {% endblock %}

@@ -29,7 +29,7 @@
             <button onclick="changeMainImage('{{ product.image_url }}')" class="flex-shrink-0 w-24 h-24 bg-slate-50 border border-slate-200 rounded-xl overflow-hidden hover:border-blue-500 focus:border-blue-500 transition snap-start">
                 <img src="{{ product.image_url }}" class="w-full h-full object-cover">
             </button>
-            
+
             <!-- Additional Gallery Images -->
             {% for img in product.gallery_images.all %}
             <button onclick="changeMainImage('{{ img.image_url }}')" class="flex-shrink-0 w-24 h-24 bg-slate-50 border border-slate-200 rounded-xl overflow-hidden hover:border-blue-500 focus:border-blue-500 transition snap-start">
@@ -51,6 +51,7 @@
         </div>
 
         <div class="mt-auto space-y-4">
+            <p class="text-center text-[16px] text-slate-400 font-mono">To buy it click the button below</p>
             <a href="{{ product.external_link }}" target="_blank" class="flex items-center justify-center gap-3 w-full bg-slate-900 text-white py-4 rounded-2xl font-bold hover:bg-blue-600 transition-all shadow-xl shadow-slate-200">
                 <i class="ph ph-lock-key text-xl"></i> SECURE_LINK.EXE
             </a>
@@ -65,14 +66,14 @@
         const container = document.getElementById('zoom-container');
         const overlay = document.getElementById('zoom-overlay');
         const mainImg = document.getElementById('main-image');
-        
+
         mainImg.style.opacity = '0'; // Hide base image
-        
+
         // Calculate mouse position relative to container
         const rect = container.getBoundingClientRect();
         const x = ((e.clientX - rect.left) / rect.width) * 100;
         const y = ((e.clientY - rect.top) / rect.height) * 100;
-        
+
         // Move the background image
         overlay.style.backgroundPosition = `${x}% ${y}%`;
     }
